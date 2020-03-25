@@ -5,7 +5,6 @@ import 'antd/dist/antd.css';
 var backStyle = {
     backgroundImage: 'url(assets/background.jpg)',
     backgroundSize: '100% 100%',
-    height: '800px',
     width: '100%',
     position: 'absolute',
     top: '0px',
@@ -40,9 +39,6 @@ var sloganStyle = {
 }
 
 class HomePage extends Component {
-    // constructor(props) {
-    //     super(props);
-    // }
     
     render() {
         

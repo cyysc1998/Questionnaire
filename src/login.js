@@ -1,24 +1,21 @@
 import React, { Component } from 'react';
-import { Form, Input, Button, Checkbox } from 'antd';
+import { Form, Input, Button, Checkbox} from 'antd';
 
 
 var wholeStyle = {
-    backgroundImage: 'url(assets/login.jpg)',
+    backgroundImage: 'url(assets/register.jpg)',
     backgroundSize: '100% 100%',
-    height: '800px',
     width: '100%',
     position: 'absolute',
     top: '0px',
     bottom: '0px',
     left: '0px',
     marginBottom: '0px',
-  
 }
 
 var loginStyle = {
     width: '450px',
     height: '390px',
-    // border: '3px solid orange', 
     borderRadius: '10px',
     margin: "150px auto",
     backgroundColor: 'white',
@@ -27,7 +24,6 @@ var loginStyle = {
 var loginpanelStyle = {
     width: '90%',
     margin: '50px auto',
-    // border: '2px solid blue',
 }
 
 const layout = {
@@ -51,7 +47,8 @@ class LoginPanel extends Component {
         this.state = {
             userName: "",
             passwd: "",
-            remember: false
+            remember: false,
+            pass: 0, // 0 means succeed, 1 means error password, 2 means no such username
         }
     }
 
@@ -65,26 +62,42 @@ class LoginPanel extends Component {
 
     handleChange(values) {
         console.log(values)
-        
         this.setState({
             userName: values.userName,
             passwd: values.password,
             remember: values.remember
         })
+        if(values.username !== "yy") {
+            this.setState({ 
+                pass: 2
+            })
+        }
+        else if(values.password !== "123456") {
+            this.setState({ 
+                pass: 1
+            })
+        }
+        else {
+            this.setState({ 
+                pass: 0
+            })
+        }
     }
+    notice = ["登陆成功", "密码错误", "用户名未注册"]
     render() {
         return (
             <div id="login-panel" style={wholeStyle}>
                 <div className="slogan"  style={{marginLeft: "80px", position: "relative", top:"40px"}}>
-                    <img src="assets/logo.jpg" alt="logo" width="50px" height="50px" />
+                    <img src="assets/logo4.jpg" alt="logo" width="50px" height="50px"/>
                     <img src="assets/logo2.jpg" alt="logo" width="100px" height="30px"/>
-                    <Button type="primary" shape="round" style={{position: "fixed", right: '70px'}}>返回主页</Button>
+                    <Button type="primary" shape="round" style={{position: "fixed", right: '150px'}}>返回主页</Button>
+                    <Button type="primary" shape="round" ghost="true" style={{position: "fixed", right: '70px'}}>注册</Button>
                 </div>
                 <div className="bodypanel" style={loginStyle}>
                     <div className="center" style={{width: '100%', position: 'relative', top: '20px'}}>
                         <h1 align="center">用户名登录</h1>
                      
-                        <hr style={{}}/>
+                        <hr/>
                         <div className="loginpanel" style={loginpanelStyle}>
                             <Form
                                 {...layout}
@@ -126,10 +139,12 @@ class LoginPanel extends Component {
                                 </Form.Item>
                                 <Form.Item {...tailLayout}>
                                     <Button type="primary" htmlType="submit" style={{width:"40%"}}>
-                                    Submit
+                                    登录
                                     </Button>
                                 </Form.Item>
+                                {this.state.pass===0 ? <p/>: <p style={{color:"red", textAlign:"center"}}>{this.notice[this.state.pass]}</p>}
                             </Form>
+                            
                         </div>
                     </div>
                 </div>
