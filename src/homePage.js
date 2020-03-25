@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import {Link} from 'react-router-dom';
 import {Button} from 'antd';
 import 'antd/dist/antd.css';
 
@@ -45,12 +46,14 @@ class HomePage extends Component {
         return(
             <div id="homepage" style={backStyle}>
                 <div id="headpart" style={headStyle}>
-                    <div id="imgcontainer" style={{marginLeft: "80px", float: "left"}}>
+                    <div id="imgcontainer" style={{marginLeft: "80px", float: "left", position: "relative", top:"40px"}}>
                         <img src="assets/logo.jpg" alt="logo" width="50px" height="50px" />
                         <img src="assets/logo2.jpg" alt="logo" width="100px" height="30px"/>
                     </div>
-                    <div id="functions" style={{marginLeft:"80%", position:"relative", top:"10px"}}>
-                        <Button type="primary" shape="round">登录</Button>
+                    <div id="functions" style={{marginLeft:"80%", position:"relative", top:"40px"}}>
+                        <Link to="/login">
+                            <Button type="primary" shape="round">登录</Button>
+                        </Link>
                         <span>&nbsp;&nbsp;&nbsp;</span>
                         <Button type="primary" shape="round" ghost="true">注册</Button>
                     </div>
@@ -60,9 +63,11 @@ class HomePage extends Component {
                         <h1 style={{color: 'white'}}>天天问卷，您身边的调查专家</h1>
                         <span style={{color: 'orange'}}>调查问卷、调查报告、市场调研</span>
                     </div>
-                    <Button type="primary" size="large" style={{width: "200px", height: "60px", fontSize: "18px", position:'relative', top: "270px"}}> 
-                        免费使用
-                    </Button>
+                    <Link to="/login">
+                        <Button type="primary" size="large" style={{width: "200px", height: "60px", fontSize: "18px", position:'relative', top: "270px"}}> 
+                            免费使用
+                        </Button>
+                    </Link>
                 </div>
                 <div id="bottompart" style={bottomStyle}>
 

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import {Link} from 'react-router-dom';
 import { Form, Input, Button, Checkbox} from 'antd';
 
 
@@ -90,7 +91,9 @@ class LoginPanel extends Component {
                 <div className="slogan"  style={{marginLeft: "80px", position: "relative", top:"40px"}}>
                     <img src="assets/logo4.jpg" alt="logo" width="50px" height="50px"/>
                     <img src="assets/logo2.jpg" alt="logo" width="100px" height="30px"/>
-                    <Button type="primary" shape="round" style={{position: "fixed", right: '150px'}}>返回主页</Button>
+                    <Link to="/">
+                        <Button type="primary" shape="round" style={{position: "fixed", right: '150px'}}>返回主页</Button>
+                    </Link>
                     <Button type="primary" shape="round" ghost="true" style={{position: "fixed", right: '70px'}}>注册</Button>
                 </div>
                 <div className="bodypanel" style={loginStyle}>
