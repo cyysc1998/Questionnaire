@@ -37,7 +37,7 @@ const layout = {
   };
   const tailLayout = {
     wrapperCol: {
-      offset: 6,
+      offset: 8,
       span: 16,
     },
   };
@@ -92,9 +92,11 @@ class LoginPanel extends Component {
                     <img src="assets/logo4.jpg" alt="logo" width="50px" height="50px"/>
                     <img src="assets/logo2.jpg" alt="logo" width="100px" height="30px"/>
                     <Link to="/">
-                        <Button type="primary" shape="round" style={{position: "fixed", right: '150px'}}>返回主页</Button>
+                        <Button type="primary" shape="round" style={{position: "fixed", right: '220px'}}>返回主页</Button>
                     </Link>
-                    <Button type="primary" shape="round" ghost="true" style={{position: "fixed", right: '70px'}}>注册</Button>
+                    <Link to="/register">
+                        <Button type="primary" shape="round" ghost="true" style={{position: "fixed", right: '140px'}}>注册</Button>
+                    </Link>
                 </div>
                 <div className="bodypanel" style={loginStyle}>
                     <div className="center" style={{width: '100%', position: 'relative', top: '20px'}}>
@@ -141,7 +143,7 @@ class LoginPanel extends Component {
                                     <Checkbox>Remember me</Checkbox>
                                 </Form.Item>
                                 <Form.Item {...tailLayout}>
-                                    <Button type="primary" htmlType="submit" style={{width:"40%"}}>
+                                    <Button type="primary" htmlType="submit" style={{width:"50%"}}>
                                     登录
                                     </Button>
                                 </Form.Item>

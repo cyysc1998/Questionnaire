@@ -2,7 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Router, Route} from 'react-router';
 import HomePage from './homePage';
-import LoginPanel from './login'
+import LoginPage from './login'
+import RegisterPage from './register'
 import { createHashHistory } from 'history';
 
 const hashHistory = createHashHistory();
@@ -13,7 +14,8 @@ ReactDOM.render(
   (
     <Router history={hashHistory}>
       <Route path="/" component={HomePage}/>
-      <Route path="/login" component={LoginPanel}/>
+      <Route path="/login" component={LoginPage}/>
+      <Route path="/register" component={RegisterPage}/>
     </Router>
   ),
   document.getElementById('root')

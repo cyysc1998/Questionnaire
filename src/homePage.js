@@ -55,7 +55,9 @@ class HomePage extends Component {
                             <Button type="primary" shape="round">登录</Button>
                         </Link>
                         <span>&nbsp;&nbsp;&nbsp;</span>
-                        <Button type="primary" shape="round" ghost="true">注册</Button>
+                        <Link to="/register">
+                            <Button type="primary" shape="round" ghost="true">注册</Button>
+                        </Link>
                     </div>
                 </div>
                 <div id="bodypart" style={bodyStyle}>
