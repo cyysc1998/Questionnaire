@@ -89,8 +89,10 @@ class LoginPanel extends Component {
         return (
             <div id="login-panel" style={wholeStyle}>
                 <div className="slogan"  style={{marginLeft: "80px", position: "relative", top:"40px"}}>
-                    <img src="assets/logo4.jpg" alt="logo" width="50px" height="50px"/>
-                    <img src="assets/logo2.jpg" alt="logo" width="100px" height="30px"/>
+                    <Link to="/">
+                        <img src="assets/logo4.jpg" alt="logo" width="50px" height="50px"/>
+                        <img src="assets/logo2.jpg" alt="logo" width="100px" height="30px"/>
+                    </Link>
                     <Link to="/">
                         <Button type="primary" shape="round" style={{position: "fixed", right: '220px'}}>返回主页</Button>
                     </Link>
@@ -108,8 +110,9 @@ class LoginPanel extends Component {
                                 {...layout}
                                 name="basic"
                                 initialValues={{
-                                    remember: true,
+                                    remember: false,
                                 }}
+                                
                                 // onFinish={this.onFinish}
                                 // onFinishFailed={this.onFinishFailed}
                                 onFinish={e=>this.handleChange(e)}
@@ -125,7 +128,7 @@ class LoginPanel extends Component {
                                     ]}
                                     
                                 >
-                                    <Input/>
+                                    <Input placeholder="请输入用户名"/>
                                 </Form.Item>
                                 <Form.Item
                                     label="密码"
@@ -137,7 +140,7 @@ class LoginPanel extends Component {
                                     },
                                     ]}
                                 >
-                                    <Input.Password />
+                                    <Input.Password placeholder="请输入密码"/>
                                 </Form.Item>
                                 <Form.Item {...tailLayout} name="remember" valuePropName="checked">
                                     <Checkbox>Remember me</Checkbox>

@@ -47,8 +47,10 @@ class HomePage extends Component {
             <div id="homepage" style={backStyle}>
                 <div id="headpart" style={headStyle}>
                     <div id="imgcontainer" style={{marginLeft: "80px", float: "left", position: "relative", top:"40px"}}>
-                        <img src="assets/logo.jpg" alt="logo" width="50px" height="50px" />
-                        <img src="assets/logo2.jpg" alt="logo" width="100px" height="30px"/>
+                        <Link to="/">
+                            <img src="assets/logo.jpg" alt="logo" width="50px" height="50px" />
+                            <img src="assets/logo2.jpg" alt="logo" width="100px" height="30px"/>
+                        </Link>
                     </div>
                     <div id="functions" style={{marginLeft:"80%", position:"relative", top:"40px"}}>
                         <Link to="/login">

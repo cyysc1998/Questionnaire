@@ -77,13 +77,15 @@ class RegisterPage extends Component {
         return (
             <div id="register-panel" style={wholeStyle}>
                 <div className="slogan"  style={{marginLeft: "80px", position: "relative", top:"40px"}}>
-                    <img src="assets/logo4.jpg" alt="logo" width="50px" height="50px"/>
-                    <img src="assets/logo2.jpg" alt="logo" width="100px" height="30px"/>
                     <Link to="/">
-                        <Button type="primary" shape="round" style={{position: "fixed", right: '220px'}}>返回主页</Button>
+                        <img src="assets/logo4.jpg" alt="logo" width="50px" height="50px"/>
+                        <img src="assets/logo2.jpg" alt="logo" width="100px" height="30px"/>
                     </Link>
                     <Link to="/login">
                         <Button type="primary" shape="round" ghost="true" style={{position: "fixed", right: '140px'}}>登录</Button>
+                    </Link>
+                    <Link to="/">
+                        <Button type="primary" shape="round" style={{position: "fixed", right: '220px'}}>返回主页</Button>
                     </Link>
                 </div>
                 <div className="bodypanel" style={registerStyle}>
@@ -130,7 +132,7 @@ class RegisterPage extends Component {
                                         }),
                                     ]}
                                 >
-                                    <Input />
+                                    <Input placeholder="5-15位数字、字母"/>
                                 </Form.Item>
 
                                 <Form.Item
@@ -147,7 +149,7 @@ class RegisterPage extends Component {
                                     },
                                     ]}
                                 >
-                                    <Input />
+                                    <Input placeholder="请输入您的电子邮箱地址"/>
                                 </Form.Item>
 
                                 <Form.Item
@@ -182,7 +184,7 @@ class RegisterPage extends Component {
                                     ]}
                                     hasFeedback
                                 >
-                                    <Input.Password />
+                                    <Input.Password placeholder="5-15位数字、字母"/>
                                 </Form.Item>
 
                                 <Form.Item
@@ -205,7 +207,7 @@ class RegisterPage extends Component {
                                     }),
                                     ]}
                                 >
-                                    <Input.Password />
+                                    <Input.Password placeholder="请再次输入密码"/>
                                 </Form.Item>
 
                                 <Form.Item
@@ -234,7 +236,6 @@ class RegisterPage extends Component {
                     </div>
                 </div>
             </div>
-
         )
     }
 }
