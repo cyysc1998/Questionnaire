@@ -49,7 +49,7 @@ class LoginPanel extends Component {
             userName: "",
             passwd: "",
             remember: false,
-            pass: 0, // 0 means succeed, 1 means error password, 2 means no such username
+            pass: 0, // 0 means succeed, -1 means error password, -2 means no such username
         }
         this.handleResponce = this.handleResponce.bind(this)
     }
@@ -59,7 +59,7 @@ class LoginPanel extends Component {
     };
 
     handleResponce(res) {
-        if(res === 0) {
+        if(res >= 0) {
             window.location.href = "/";
         }
         else{
@@ -158,7 +158,7 @@ class LoginPanel extends Component {
                                     登录
                                     </Button>
                                 </Form.Item>
-                                {this.state.pass===0 ? <p/>: <p style={{color:"red", textAlign:"center"}}>{this.notice[this.state.pass]}</p>}
+                                {this.state.pass===0 ? <p/>: <p style={{color:"red", textAlign:"center"}}>{this.notice[-this.state.pass]}</p>}
                             </Form>
                             
                         </div>

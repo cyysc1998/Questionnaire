@@ -8,6 +8,7 @@ import {
     Button,
 } from 'antd';
 import { QuestionCircleOutlined } from '@ant-design/icons';
+import axios from 'axios'
 
 var wholeStyle = {
     backgroundImage: 'url(assets/register.jpg)',
@@ -71,7 +72,22 @@ const formItemLayout = {
 class RegisterPage extends Component {
     
     onFinish = values => {
+        delete values.comfirm;
+        delete values.aggrement;
         console.log(values);
+        axios({
+            method:'post',
+            url: '/api/register',
+            data: {
+                ...values
+            },
+        })
+        .then(function(response) {
+            console.log(response.data)
+        })
+        .catch(function(error) {
+            console.log(error);
+        }) 
     };
     render() {
         return (
@@ -101,7 +117,7 @@ class RegisterPage extends Component {
                                 scrollToFirstError
                             >
                                 <Form.Item
-                                    name="nickname"
+                                    name="name"
                                     label={
                                     <span>
                                         昵称&nbsp;
@@ -118,7 +134,7 @@ class RegisterPage extends Component {
                                         },
                                         ({ getFieldValue }) => ({
                                             validator(rule, value) {
-                                                let username = getFieldValue('nickname');
+                                                let username = getFieldValue('name');
                                                 var reg =  /^[0-9a-zA-Z]*$/g;
                                                 if(username === undefined)
                                                     return Promise.resolve();
