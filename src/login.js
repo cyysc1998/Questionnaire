@@ -51,15 +51,23 @@ class LoginPanel extends Component {
             remember: false,
             pass: 0, // 0 means succeed, 1 means error password, 2 means no such username
         }
+        this.handleResponce = this.handleResponce.bind(this)
     }
-
-    onFinish(values){
-        // console.log('Success:', values);
-    };
     
     onFinishFailed(errorInfo){
         console.log('Failed:', errorInfo);
     };
+
+    handleResponce(res) {
+        if(res === 0) {
+            window.location.href = "/";
+        }
+        else{
+            this.setState({ 
+                pass: res
+            })
+        }
+    }
 
     handleChange(values) {
         console.log({...values})
@@ -68,40 +76,7 @@ class LoginPanel extends Component {
             passwd: values.password,
             remember: values.remember
         })
-        // if(values.username !== "yy") {
-        //     this.setState({ 
-        //         pass: 2
-        //     })
-        // }
-        // else if(values.password !== "123456") {
-        //     this.setState({ 
-        //         pass: 1
-        //     })
-        // }
-        // else {
-        //     this.setState({ 
-        //         pass: 0
-        //     })
-        // }
-
-        // var form = document.createElement('form');
-        // document.body.appendChild(form);
-        // form.id = 'login';
-        // for(const key in values){
-        //     if(values[key]!==undefined && Object.hasOwnProperty.call(values, key)) {
-        //         const input  = document.createElement('input');
-        //         input.type = 'hidden';
-        //         input.name = key;
-        //         input.value = values[key];
-        //         form.appendChild(input);
-        //     }
-        // }
-        // form.method = 'GET';
-        // form.action = 'http://localhost:8080/api/login';
-        // // form.action = 'api/login';
-        // form.submit();
-        // document.body.removeChild(form);
-        
+        const _this = this;
         axios({
             method:'post',
             url: '/api/login',
@@ -110,12 +85,12 @@ class LoginPanel extends Component {
             },
         })
         .then(function(response) {
-            console.log(response);
+            console.log(response.data)
+            _this.handleResponce(response.data)
         })
         .catch(function(error) {
             console.log(error);
-        })
-
+        }) 
     }
     notice = ["登陆成功", "密码错误", "用户名未注册"]
     render() {
