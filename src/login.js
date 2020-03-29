@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {Link} from 'react-router-dom';
 import { Form, Input, Button, Checkbox} from 'antd';
-
+import axios from 'axios'
 
 var wholeStyle = {
     backgroundImage: 'url(assets/register.jpg)',
@@ -54,7 +54,7 @@ class LoginPanel extends Component {
     }
 
     onFinish(values){
-        console.log('Success:', values);
+        // console.log('Success:', values);
     };
     
     onFinishFailed(errorInfo){
@@ -62,27 +62,60 @@ class LoginPanel extends Component {
     };
 
     handleChange(values) {
-        console.log(values)
+        console.log({...values})
         this.setState({
             userName: values.userName,
             passwd: values.password,
             remember: values.remember
         })
-        if(values.username !== "yy") {
-            this.setState({ 
-                pass: 2
-            })
-        }
-        else if(values.password !== "123456") {
-            this.setState({ 
-                pass: 1
-            })
-        }
-        else {
-            this.setState({ 
-                pass: 0
-            })
-        }
+        // if(values.username !== "yy") {
+        //     this.setState({ 
+        //         pass: 2
+        //     })
+        // }
+        // else if(values.password !== "123456") {
+        //     this.setState({ 
+        //         pass: 1
+        //     })
+        // }
+        // else {
+        //     this.setState({ 
+        //         pass: 0
+        //     })
+        // }
+
+        // var form = document.createElement('form');
+        // document.body.appendChild(form);
+        // form.id = 'login';
+        // for(const key in values){
+        //     if(values[key]!==undefined && Object.hasOwnProperty.call(values, key)) {
+        //         const input  = document.createElement('input');
+        //         input.type = 'hidden';
+        //         input.name = key;
+        //         input.value = values[key];
+        //         form.appendChild(input);
+        //     }
+        // }
+        // form.method = 'GET';
+        // form.action = 'http://localhost:8080/api/login';
+        // // form.action = 'api/login';
+        // form.submit();
+        // document.body.removeChild(form);
+        
+        axios({
+            method:'post',
+            url: '/api/login',
+            data: {
+                ...values
+            },
+        })
+        .then(function(response) {
+            console.log(response);
+        })
+        .catch(function(error) {
+            console.log(error);
+        })
+
     }
     notice = ["登陆成功", "密码错误", "用户名未注册"]
     render() {
