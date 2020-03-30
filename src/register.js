@@ -70,7 +70,7 @@ const formItemLayout = {
 
 
 class RegisterPage extends Component {
-    
+
     onFinish = values => {
         delete values.comfirm;
         delete values.aggrement;
@@ -89,7 +89,34 @@ class RegisterPage extends Component {
             console.log(error);
         }) 
     };
+
+    async get(name) {
+        let res =  await this.nameCheck(name)
+        return res
+    }
+
+    nameCheck(name) {
+        let param = new URLSearchParams();
+        param.append("name", name);
+        return axios({
+            method:'post',
+            url: '/api/register/namecheck',
+            data: param
+        })
+        .then(function(response) {
+            return response.data 
+        })
+        .catch(function(error) {
+            console.log(error);
+        })
+        
+        
+        // console.log('before return')
+        // return res
+    }
+
     render() {
+        var _this = this
         return (
             <div id="register-panel" style={wholeStyle}>
                 <div className="slogan"  style={{marginLeft: "80px", position: "relative", top:"40px"}}>
@@ -134,7 +161,10 @@ class RegisterPage extends Component {
                                         },
                                         ({ getFieldValue }) => ({
                                             validator(rule, value) {
+                                                var _Promise = Promise
+                                    
                                                 let username = getFieldValue('name');
+                                        
                                                 var reg =  /^[0-9a-zA-Z]*$/g;
                                                 if(username === undefined)
                                                     return Promise.resolve();
@@ -143,6 +173,29 @@ class RegisterPage extends Component {
                                                 else if (username.length < 5 || username.length > 15) {
                                                     return Promise.reject('昵称长度在5-15位之间');
                                                 }
+                                                else {
+                                                    _this.get(username)
+                                                    .then((valid) => {
+                                                        if(valid === 0)
+                                                            return _Promise.reject('该昵称已被注册');
+                                                    })
+                                                    
+                                                    // let param = new URLSearchParams();
+                                                    // param.append("name", username);
+                                                    // axios({
+                                                    //     method:'post',
+                                                    //     url: '/api/register/namecheck',
+                                                    //     data: param
+                                                    // })
+                                                    // .then(function(response) {
+                                                    //     if(response.data === 0)
+                                                    //         return _Promise.reject('该昵称已被注册');
+                                                    // })
+                                                    // .catch(function(error) {
+                                                    //     console.log(error);
+                                                    // })
+                                                }
+                                
                                                 return Promise.resolve();
                                             },
                                         }),
