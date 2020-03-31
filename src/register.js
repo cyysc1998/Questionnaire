@@ -279,7 +279,7 @@ class RegisterPage extends Component {
                                                 return Promise.resolve();
                                             else if(!reg.test(passwd))
                                                 return Promise.reject('密码需仅由字母、数字组成');
-                                            else if (passwd.length < 5 || passwd.length > 15) {
+                                            else if ((passwd.length < 5 || passwd.length > 15) && passwd.length !== 0) {
                                                 return Promise.reject('密码长度在5-15位之间');
                                             }
                                             return Promise.resolve();
