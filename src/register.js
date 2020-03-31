@@ -23,7 +23,7 @@ var wholeStyle = {
 
 var registerStyle = {
     width: '450px',
-    height: '470px',
+    height: '500px',
     borderRadius: '10px',
     position: 'relative', 
     top: "150px",
@@ -75,10 +75,12 @@ class RegisterPage extends Component {
         super(props);
         this.state = {
             name: 1,
-            email: 1
+            email: 1,
+            total: 3  // 0 means all invalid, 1 means name invaid, 2 means email invaid, 3 means all valid, 4 means register succeed
         }
     }
     onFinish = values => {
+        var _this = this
         delete values.comfirm;
         delete values.aggrement;
         console.log(values);
@@ -91,34 +93,19 @@ class RegisterPage extends Component {
         })
         .then(function(response) {
             console.log(response.data)
+            if(response.data > 0) {
+                _this.setState({ 
+                    total: 4
+                })
+                setTimeout(function (){
+                    window.location.href = '#/login'
+                }, 3000)
+            }
         })
         .catch(function(error) {
             console.log(error);
         }) 
     };
-
-    // async get(name) {
-    //     let res =  await this.nameCheck(name)
-    //     return res
-    // }
-
-    // nameCheck(name, check) {
-    //     let param = new URLSearchParams();
-    //     param.append("name", name);
-    //     let p = new Promise((resolve, reject) => {
-    //         axios({
-    //             method:'post',
-    //             url: '/api/register/namecheck',
-    //             data: param
-    //         }).then(response=>resolve(response.data))
-    //     })
-    //     Promise.all([p]).then(res => {
-    //         console.log('全部完成')
-    //         console.log(res[0])
-    //         return res
-    //     })
-        
-    // }
 
     nameCheck(e) {
         var _this = this
@@ -134,11 +121,58 @@ class RegisterPage extends Component {
             _this.setState({
                 name: response.data
             })
+            var _total 
+            if(_this.state.name === 0 && _this.state.email === 0)
+                _total = 0
+            else if(_this.state.name === 0 && _this.state.email === 1)
+                _total = 1
+            else if(_this.state.name === 1 && _this.state.email === 0)
+                _total = 2
+            else
+                _total = 3
+            _this.setState({
+                total: _total
+            })
+
         })
         .catch(function(error) {
             console.log(error);
         })
     }
+
+    emailCheck(e) {
+        var _this = this
+        var email = e.target.value
+        let param = new URLSearchParams();
+        param.append("email", email);
+        return axios({
+            method:'post',
+            url: '/api/register/emailcheck',
+            data: param
+        })
+        .then(function(response) {
+            _this.setState({
+                email: response.data
+            })
+            var _total 
+            if(_this.state.name === 0 && _this.state.email === 0)
+                _total = 0
+            else if(_this.state.name === 0 && _this.state.email === 1)
+                _total = 1
+            else if(_this.state.name === 1 && _this.state.email === 0)
+                _total = 2
+            else
+                _total = 3
+            _this.setState({
+                total: _total
+            })
+        })
+        .catch(function(error) {
+            console.log(error);
+        })
+    }
+
+    mesg = ["该昵称已被注册 该邮箱已被注册", "该昵称已被注册", "改邮箱已被注册", "", "注册成功，页面在3秒钟后自动跳转..."]
 
     render() {
         var _this = this
@@ -196,26 +230,6 @@ class RegisterPage extends Component {
                                                 else if ((username.length < 5 || username.length > 15) && username.length !== 0) {
                                                     return Promise.reject('昵称长度在5-15位之间');
                                                 }
-                                                else {
-                                                    if(_this.state.name === 0)
-                                                        return Promise.reject('该昵称已被注册');
-                    
-                                                   
-                                                    // let param = new URLSearchParams();
-                                                    // param.append("name", username);
-                                                    // axios({
-                                                    //     method:'post',
-                                                    //     url: '/api/register/namecheck',
-                                                    //     data: param
-                                                    // })
-                                                    // .then(function(response) {
-                                                    //     if(response.data === 0)
-                                                    //         return _Promise.reject('该昵称已被注册');
-                                                    // })
-                                                    // .catch(function(error) {
-                                                    //     console.log(error);
-                                                    // })
-                                                }
                                                 return Promise.resolve();
                                             },
                                         }),
@@ -224,7 +238,6 @@ class RegisterPage extends Component {
                                 >
                                     <Input placeholder="5-15位数字、字母"/>
                                 </Form.Item>
-
                                 <Form.Item
                                     name="email"
                                     label="电子邮件"
@@ -238,6 +251,7 @@ class RegisterPage extends Component {
                                         message: '请输入您的电子邮件!',
                                     },
                                     ]}
+                                    onBlur = {(e)=>this.emailCheck(e)}
                                 >
                                     <Input placeholder="请输入您的电子邮箱地址"/>
                                 </Form.Item>
@@ -321,6 +335,7 @@ class RegisterPage extends Component {
                                         注册
                                     </Button>
                                 </Form.Item>
+                                {this.state.pass===3 ? <p/>: <p style={{color:"red", textAlign:"center"}}>{_this.mesg[this.state.total]}</p>}
                             </Form>
                         </div>
                     </div>
