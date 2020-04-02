@@ -5,7 +5,7 @@ import HomePage from './screen/homePage';
 import LoginPage from './screen//login'
 import RegisterPage from './screen/register'
 import { createHashHistory } from 'history';
-import test from './component/test'
+import test from './component/display/CheckBox'
 
 const hashHistory = createHashHistory();
 
