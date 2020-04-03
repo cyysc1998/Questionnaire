@@ -38,13 +38,14 @@ class SingleBox extends React.Component {
         return (
             <div style={{border: '0px solid #1E90FF', width: '50%', webkitBoxShadow: '0px 3px 3px #c8c8c8',
                 mozBoxShadow: '0px 3px 3px #c8c8c8', boxShadow: '0px 3px 3px #c8c8c8'}}>
-                <div style={{width: '60%', textAlign: 'left', margin: '0 auto'}}>
+                <div style={{width: '80%', textAlign: 'left', margin: '0 auto'}}>
                     {intro} <br/>
                     <div style={{width: '90%', textAlign: 'left', margin: '0 auto'}}>
                         <Radio.Group onChange={this.onChange} value={this.state.value}>
                             {Radios}
                         </Radio.Group>
                     </div>
+                    <br/>
                 </div>
             </div>
         )
