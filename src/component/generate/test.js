@@ -1,9 +1,10 @@
 import React from 'react';
-import CheckBox from './CheckBox'
-import SingleBox from './SingleBox'
-import TextBox from './TextBox'
-import RateBox from './RateBox'
-import DigitBox from './DigitBox'
+import CheckBox from '../display/CheckBox'
+import SingleBox from '../display/SingleBox'
+import TextBox from '../display/TextBox'
+import RateBox from '../display/RateBox'
+import DigitBox from '../display/DigitBox'
+import GSingleBox from './GSingleBox'
 
 export default class Test extends React.Component{
     render() {
@@ -54,7 +55,8 @@ export default class Test extends React.Component{
                 <br/>
                 <RateBox data = {ra}/>
                 <br/> */}
-                <DigitBox data = {data}/>
+                {/* <DigitBox data = {data}/> */}
+                <GSingleBox/>
             </div>
         )
     }
