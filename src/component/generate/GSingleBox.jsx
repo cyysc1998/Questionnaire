@@ -1,5 +1,5 @@
 import React from 'react';
-import { Form, Input, Button } from 'antd';
+import { Form, Input, Button, Card } from 'antd';
 import { MinusCircleOutlined, PlusOutlined, EditFilled } from '@ant-design/icons';
 
 const formItemLayoutWithOutLabel = {
@@ -9,14 +9,41 @@ const formItemLayoutWithOutLabel = {
     },
 };
 
+const blurStyle = {
+    tabIndex: '0',
+    hideFocus: 'true',
+    border: '0px solid #1E90FF', width: '70%', 
+    webkitBoxShadow: '0px 3px 3px #c8c8c8', mozBoxShadow: '0px 3px 3px #c8c8c8', boxShadow: '0px 3px 3px #c8c8c8'
+}
+
+const focusStyle = {
+    tabIndex: '0',
+    hideFocus: 'true',
+    borderStyle: 'solid',
+    borderColor: '#03a9f4',
+    boxShadow: '0 0 15px #03a9f4',
+    width: '70%', 
+    borderRadius: '5px'
+}
+
+var mainStyle = blurStyle;
+
 class GSingleBox extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            // id: this.props.id,
+            id: this.props.id,
             intro: "",
             choices: []
         }
+    }
+
+    onFocus() {
+        mainStyle = focusStyle
+    }
+
+    onBlur() {
+        mainStyle = blurStyle
     }
 
     onIntroChange = (e) => {
@@ -33,12 +60,12 @@ class GSingleBox extends React.Component {
 
     render() {
         return (
-            <div style={{border: '0px solid #1E90FF', width: '50%', webkitBoxShadow: '0px 3px 3px #c8c8c8',
-            mozBoxShadow: '0px 3px 3px #c8c8c8', boxShadow: '0px 3px 3px #c8c8c8'}}>
+            <Card style= {mainStyle} title={'问题'+this.state.id+'（单选）'}
+                // onClick={()=>this.onFocus()}
+            >
                <div style={{width: '80%', textAlign: 'center', margin: '0 auto'}}>
-                    <br/>
                     <span style={{fontWeight: 'bold'}}>问题：</span>
-                    <Input placeholder="请在此输入问题" style={{ width: '65%'}} onChange={this.onIntroChange}/>
+                    <Input placeholder="请在此输入问题" style={{ width: '65.5%'}} onChange={this.onIntroChange}/>
                     <br/>
                     <br/>
                     <Form name="dynamic_form_item" {...formItemLayoutWithOutLabel} onValuesChange={this.onFinish}>
@@ -65,7 +92,7 @@ class GSingleBox extends React.Component {
                                             ]}
                                             noStyle
                                         >                        
-                                            <Input placeholder='请添加选项' style={{ width: '70%'}}/>
+                                            <Input placeholder={'请添加选项' + (index + 1)} style={{ width: '70%'}}/>
                                             
                                         </Form.Item>
                                         {fields.length > 0 ? (
@@ -96,9 +123,9 @@ class GSingleBox extends React.Component {
                             }}
                         </Form.List>
                     </Form>
-                    <br/> 
+                    {/* <br/>  */}
                 </div>
-            </div>
+            </Card>
         );
     }
 }

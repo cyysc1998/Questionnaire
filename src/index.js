@@ -6,6 +6,7 @@ import LoginPage from './screen//login'
 import RegisterPage from './screen/register'
 import { createHashHistory } from 'history';
 import test from './component/generate/test'
+import EditorPage from './screen/editor'
 
 const hashHistory = createHashHistory();
 
@@ -18,6 +19,7 @@ ReactDOM.render(
       <Route path="/login" component={LoginPage}/>
       <Route path="/register" component={RegisterPage}/>
       <Route path="/test" component={test}/>
+      <Route path="/editor" component={EditorPage}/>"
     </Router>
   ),
   document.getElementById('root')
