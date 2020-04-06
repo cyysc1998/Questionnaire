@@ -1,7 +1,7 @@
 import React from 'react';
 import GSingleBox from '../component/generate/GSingleBox';
 import { UserOutlined, LaptopOutlined, NotificationOutlined } from '@ant-design/icons';
-import { Layout, Menu, Breadcrumb } from 'antd';
+import { Layout, Menu, Breadcrumb, Button } from 'antd';
 
 
 const { SubMenu } = Menu;
@@ -15,6 +15,10 @@ class EditorPage extends React.Component {
                 
             ]
         }
+    }
+
+    handleSingleBox() {
+        alert('fsd')
     }
 
     render() {
@@ -45,8 +49,8 @@ class EditorPage extends React.Component {
                             </span>
                             }
                         >
-                            <Menu.Item key="1">单项选择</Menu.Item>
-                            <Menu.Item key="2">多项选择</Menu.Item>
+                            <Menu.Item key="1"><Button type="link" style={{color:'grey'}} onDoubleClick={this.handleSingleBox}>单项选择</Button></Menu.Item>
+                            <Menu.Item key="2"><Button type="link" style={{color:'grey'}} onDoubleClick={this.handleSingleBox}>多项选择</Button></Menu.Item>
                         </SubMenu>
                         <SubMenu
                             key="sub2"
@@ -57,9 +61,9 @@ class EditorPage extends React.Component {
                             </span>
                             }
                         >
-                            <Menu.Item key="3">数字收集（整数）</Menu.Item>
-                            <Menu.Item key="4">数字收集（小数）</Menu.Item>
-                            <Menu.Item key="5">文本收集</Menu.Item>
+                            <Menu.Item key="3"><Button type="link" style={{color:'grey'}} onDoubleClick={this.handleSingleBox}>数字收集(整数)</Button></Menu.Item>
+                            <Menu.Item key="4"><Button type="link" style={{color:'grey'}} onDoubleClick={this.handleSingleBox}>数字收集(小数)</Button></Menu.Item>
+                            <Menu.Item key="5"><Button type="link" style={{color:'grey'}} onDoubleClick={this.handleSingleBox}>文本收集</Button></Menu.Item>
                         </SubMenu>
                         <SubMenu
                             key="sub3"
@@ -70,8 +74,8 @@ class EditorPage extends React.Component {
                             </span>
                             }
                         >
-                            <Menu.Item key="6">级联问题</Menu.Item>
-                            <Menu.Item key="7">评分收集</Menu.Item>
+                            <Menu.Item key="6"><Button type="link" style={{color:'grey'}} onDoubleClick={this.handleSingleBox}>级联问题</Button></Menu.Item>
+                            <Menu.Item key="7"><Button type="link" style={{color:'grey'}} onDoubleClick={this.handleSingleBox}>评分收集</Button></Menu.Item>
                         </SubMenu>
                         </Menu>
                     </Sider>
