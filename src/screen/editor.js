@@ -7,18 +7,40 @@ import { Layout, Menu, Breadcrumb, Button } from 'antd';
 const { SubMenu } = Menu;
 const { Header, Footer, Sider, Content } = Layout;
 
+function addQuestion(id, type) {
+    this.id = id
+    this.type = type
+    this.questions = []
+}
+
 class EditorPage extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            cur_id: 1,
             question: [
                 
             ]
         }
     }
 
+    handleDelete(id) {
+        var _state = this.state
+        
+        _state.question.splice(id-1, 1)
+        this.setState({ 
+            ..._state
+        })
+    }
+
     handleSingleBox() {
-        alert('fsd')
+        var p = this.state;
+        p.question.push(new addQuestion(p.cur_id, 0))
+        this.setState({
+            cur_id: p.cur_id + 1,
+            question: p.question
+        })
+        console.log(this.state)
     }
 
     render() {
@@ -49,8 +71,8 @@ class EditorPage extends React.Component {
                             </span>
                             }
                         >
-                            <Menu.Item key="1"><Button type="link" style={{color:'grey'}} onDoubleClick={this.handleSingleBox}>单项选择</Button></Menu.Item>
-                            <Menu.Item key="2"><Button type="link" style={{color:'grey'}} onDoubleClick={this.handleSingleBox}>多项选择</Button></Menu.Item>
+                            <Menu.Item key="1"><Button type="link" style={{color:'grey'}} onClick={(e)=>this.handleSingleBox(e)}>单项选择</Button></Menu.Item>
+                            <Menu.Item key="2"><Button type="link" style={{color:'grey'}} onDoubleClick={()=>this.handleSingleBox()}>多项选择</Button></Menu.Item>
                         </SubMenu>
                         <SubMenu
                             key="sub2"
@@ -88,9 +110,18 @@ class EditorPage extends React.Component {
                                 minHeight: 280,
                             }}
                         >
-                            <GSingleBox id='1'/>
-                            <br/>
-                            <GSingleBox id='2'/>
+                            {
+                                this.state.question.map((question) => (
+                                    <div key={question.id}>
+                                        <GSingleBox 
+                                            id = {this.state.question.indexOf(question) + 1}
+                                            data={question.questions}
+                                            onDelete={()=>this.handleDelete()}
+                                        />
+                                        <br />
+                                    </div>
+                                ))
+                            }
                         </Content>
                     </Layout>
                 </Layout>

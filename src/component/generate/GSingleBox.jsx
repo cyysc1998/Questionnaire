@@ -1,6 +1,6 @@
 import React from 'react';
 import { Form, Input, Button, Card } from 'antd';
-import { MinusCircleOutlined, PlusOutlined, EditFilled } from '@ant-design/icons';
+import { MinusCircleOutlined, PlusOutlined, EditFilled, MinusOutlined } from '@ant-design/icons';
 
 const formItemLayoutWithOutLabel = {
     wrapperCol: {
@@ -32,8 +32,6 @@ class GSingleBox extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            id: this.props.id,
-            intro: "",
             choices: []
         }
     }
@@ -60,8 +58,19 @@ class GSingleBox extends React.Component {
 
     render() {
         return (
-            <Card style= {mainStyle} title={'问题'+this.state.id+'（单选）'}
+            <Card style= {mainStyle} title={'问题'+this.props.id+'（单选）'}
                 // onClick={()=>this.onFocus()}
+                extra={
+                    <Button
+                        type="primary"
+                        ghost
+                        onClick={() => {
+                            this.props.onDelete(this.props.id)
+                        }}
+                        >
+                        <MinusOutlined /> 删除
+                    </Button>
+                }
             >
                <div style={{width: '80%', textAlign: 'center', margin: '0 auto'}}>
                     <span style={{fontWeight: 'bold'}}>问题：</span>
