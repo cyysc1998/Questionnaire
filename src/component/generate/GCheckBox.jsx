@@ -28,11 +28,10 @@ const focusStyle = {
 
 var mainStyle = blurStyle;
 
-class GSingleBox extends React.Component {
+class GCheckBox extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            intro: "",
             choices: []
         }
     }
@@ -59,7 +58,7 @@ class GSingleBox extends React.Component {
 
     render() {
         return (
-            <Card style= {mainStyle} title={'问题'+this.props.id+'（单选）'}
+            <Card style= {mainStyle} title={'问题'+this.props.id+'（多选）'}
                 extra={
                     <Button
                         type="primary"
@@ -139,4 +138,4 @@ class GSingleBox extends React.Component {
     }
 }
 
-export default GSingleBox
+export default GCheckBox

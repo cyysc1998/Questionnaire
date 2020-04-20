@@ -40,13 +40,6 @@ class CheckBox extends React.Component {
             marginLeft: '0px'
         };
         const data = this.props.data
-        // const data = {
-        //     id: 1,
-        //     intro: '这是什么',
-        //     choices: [
-        //         '单选框', '多选框', '判断题', '问答题'
-        //     ]
-        // }
         
         const intro = <span style={{fontWeight: 'bold', fontSize: '18px'}}>{data.id}. {data.intro}</span>
         const choices = data.choices
