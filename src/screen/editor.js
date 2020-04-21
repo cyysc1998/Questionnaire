@@ -5,12 +5,18 @@ import GDigitBox from '../component/generate/GDigitBox'
 import GFloatBox from '../component/generate/GFloatBox'
 import GTextBox from '../component/generate/GTextBox'
 import GRateBox from '../component/generate/GRateBox'
-import { UserOutlined, LaptopOutlined, NotificationOutlined } from '@ant-design/icons';
-import { Layout, Menu, Button} from 'antd';
+import { UserOutlined, LaptopOutlined, NotificationOutlined, ArrowUpOutlined } from '@ant-design/icons';
+import { Layout, Menu, Button, Switch, Input, DatePicker, Modal} from 'antd';
 
+import moment from 'moment';
+import 'moment/locale/zh-cn';
+
+moment.locale('zh-cn');
 
 const { SubMenu } = Menu;
 const { Header, Sider, Content } = Layout;
+
+
 
 function addQuestion(id, type) {
     this.id = id
@@ -249,6 +255,26 @@ class EditorPage extends React.Component {
         }
     }
 
+    showModal = () => {
+        this.setState({
+            visible: true,
+        });
+    };
+    
+    handleOk = e => {
+        console.log(e);
+        this.setState({
+            visible: false,
+        });
+    };
+
+    handleCancel = e => {
+        console.log(e);
+        this.setState({
+            visible: false,
+        });
+    };
+
     render() {
 
         return (
@@ -328,13 +354,64 @@ class EditorPage extends React.Component {
                             }
                         </Content>
                     </Layout>
-                    {/* <div style={{
-                        border: '0px solid #1E90FF',
-                        WebkitBoxShadow: '0px 3px 3px #c8c8c8', MozBoxShadow: '0px 3px 3px #c8c8c8', boxShadow: '0px 3px 3px #c8c8c8',
-                        width: (document.body.clientWidth)*0.2, height:'660px', position:'fixed',
-                        right: '15px', top: '85px', backgroundColor: 'white'
+                    <div style={{
+                        border: '1.5px dashed #1E90FF',
+                        width: (document.body.clientWidth)*0.2, height:'310px', position: 'fixed',
+                        right: '50px', top: '85px', backgroundColor: 'white'
                     }}>
-                    </div> */}
+                        <div style={{width:'70%', margin: '15px auto'}}>
+                            <p><b>设置：</b></p>
+                            <span>允许非注册用户填写：</span>&nbsp;&nbsp;&nbsp;&nbsp;<Switch defaultChecked/> <p/>
+                            <span>是否限制填写次数：</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<Switch defaultChecked/> <p/>
+                            <span>是否限制每日填写次数：</span><Switch defaultChecked/> <p/>
+                            <Input addonBefore="最大填写次数" placeholder="请在此输入" /> <p/>
+                        
+                            <Input.Group compact>
+                                <Input style={{ width: '40%' }} defaultValue="截止日期" />
+                                <DatePicker style={{ width: '60%' }} />
+                            </Input.Group>
+                            
+                            <p/>
+                            <div style={{textAlign: 'center'}}>
+                                <Button type="primary" icon={<ArrowUpOutlined />}  onClick={this.showModal} size="medium">
+                                    生成问卷
+                                </Button>
+                                <Modal
+                                    title="提示"
+                                    visible={this.state.visible}
+                                    onOk={this.handleOk}
+                                    onCancel={this.handleCancel}
+                                    okText="确认"
+                                    cancelText="取消"
+                                >
+                                    <p>确认生成问卷？</p>
+                                </Modal>
+        
+                            </div>
+                        </div>
+                    </div>
+                    <div style={{
+                        border: '1.5px dashed #1E90FF',
+                        width: (document.body.clientWidth)*0.2, height:'310px', position:'fixed',
+                        right: '50px', top: '425px', backgroundColor: 'white'
+                    }}>
+                        <div style={{width:'70%', margin: '15px auto'}}>
+                            <p><b>选择题</b></p>
+                            <Button type="dashed" onClick={(e)=>this.handleSingleBox(e)}>单选问题</Button> &nbsp;
+                            <Button type="dashed" onClick={(e)=>this.handleCheckBox(e)}>多选问题</Button>
+                        </div>
+                        <div style={{width:'70%', margin: '10px auto'}}>
+                            <p><b>填空题</b></p>
+                            <Button type="dashed" onClick={(e)=>this.handleDigitBox(e)}>整数填空</Button> &nbsp;
+                            <Button type="dashed" onClick={(e)=>this.handleFloatBox(e)}>小数填空</Button> <p/>
+                            <Button type="dashed" onClick={(e)=>this.handleTextBox(e)}>文本收集</Button>
+                        </div>
+                        <div style={{width:'70%', margin: '10px auto'}}>
+                            <p><b>其他问题</b></p>
+                            <Button type="dashed" onClick={(e)=>this.handleSingleBox(e)}>级联问题</Button> &nbsp;
+                            <Button type="dashed" onClick={(e)=>this.handleRateBox(e)}>评分收集</Button>
+                        </div>
+                    </div>
                 </Layout>
             </Layout>
         )

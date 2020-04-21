@@ -25,7 +25,7 @@ class GrateBox extends React.Component {
 
     render() {
         return (
-            <Card style = {blurStyle} title={'问题'+this.props.id+'（整数收集）'}
+            <Card style = {blurStyle} title={'问题'+this.props.id+'（评分收集）'}
                 extra={
                     <Button
                         type="primary"
