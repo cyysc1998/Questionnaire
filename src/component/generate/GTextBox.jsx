@@ -19,10 +19,7 @@ class GTextBox extends React.Component {
 
 
     onIntroChange = (e) => {
-        console.log(e.target.value);
-        this.setState({
-            intro: e.target.value
-        })
+        this.props.setContent(this.props.id, e.target.value);
     }
 
     render() {

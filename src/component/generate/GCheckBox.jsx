@@ -45,15 +45,11 @@ class GCheckBox extends React.Component {
     }
 
     onIntroChange = (e) => {
-        console.log(e.target.value);
-        this.setState({
-            intro: e.target.value
-        })
+        this.props.setIntro(this.props.id, e.target.value)
     }
 
     onFinish = (values, allValues) => {
-        console.log(values)
-        console.log(allValues);
+        this.props.setChoices(this.props.id, allValues)
     };
 
     render() {

@@ -13,16 +13,12 @@ class GDigitBox extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            choices: []
+            
         }
     }
 
-
-    onIntroChange = (e) => {
-        console.log(e.target.value);
-        this.setState({
-            intro: e.target.value
-        })
+    onIntroChange = (e, index) => {
+        this.props.setContent(this.props.id, e.target.value, index);
     }
 
     render() {
@@ -42,13 +38,13 @@ class GDigitBox extends React.Component {
             >
                <div style={{width: '80%', textAlign: 'center', margin: '0 auto'}}>
                     <span style={{fontWeight: 'bold'}}>问题：</span>
-                    <Input placeholder="请在此输入问题" style={{ width: '65.5%'}} onChange={this.onIntroChange}/>
+                    <Input placeholder="请在此输入问题" style={{ width: '65.5%'}} onChange={(e)=>this.onIntroChange(e, 0)}/>
                     <br/>
                     <br/>
                     <span style={{fontWeight: 'bold'}}>设置：</span>
-                    <Input placeholder="最小值" style={{ width: '20.5%'}} onChange={this.onIntroChange}/> &nbsp;
-                    <Input placeholder="最大值" style={{ width: '20.6%'}} onChange={this.onIntroChange}/> &nbsp;
-                    <Input placeholder="步长" style={{ width: '20.7%'}} onChange={this.onIntroChange}/>   &nbsp;
+                    <Input placeholder="最小值" style={{ width: '20.5%'}} onChange={(e)=>this.onIntroChange(e, 1)}/> &nbsp;
+                    <Input placeholder="最大值" style={{ width: '20.6%'}} onChange={(e)=>this.onIntroChange(e, 2)}/> &nbsp;
+                    <Input placeholder="步长" style={{ width: '20.7%'}} onChange={(e)=>this.onIntroChange(e, 3)}/>   &nbsp;
                     <br/>
                 </div>
             </Card>

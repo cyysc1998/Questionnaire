@@ -6,7 +6,7 @@ import GFloatBox from '../component/generate/GFloatBox'
 import GTextBox from '../component/generate/GTextBox'
 import GRateBox from '../component/generate/GRateBox'
 import { UserOutlined, LaptopOutlined, NotificationOutlined } from '@ant-design/icons';
-import { Layout, Menu, Button, Card } from 'antd';
+import { Layout, Menu, Button} from 'antd';
 
 
 const { SubMenu } = Menu;
@@ -15,7 +15,7 @@ const { Header, Sider, Content } = Layout;
 function addQuestion(id, type) {
     this.id = id
     this.type = type
-    this.questions = []
+    this.q_content = {}
 }
 
 class EditorPage extends React.Component {
@@ -33,6 +33,7 @@ class EditorPage extends React.Component {
         var _state = this.state
         
         _state.question.splice(id-1, 1)
+        // _state.cur_id = Math.max(..._state.question.map(x => x.id));
         this.setState({ 
             ..._state
         })
@@ -45,7 +46,6 @@ class EditorPage extends React.Component {
             cur_id: p.cur_id + 1,
             question: p.question
         })
-        console.log(this.state)
     }
 
     handleCheckBox() {
@@ -55,7 +55,6 @@ class EditorPage extends React.Component {
             cur_id: p.cur_id + 1,
             question: p.question
         })
-        console.log(this.state)
     }
 
     handleDigitBox() {
@@ -65,7 +64,6 @@ class EditorPage extends React.Component {
             cur_id: p.cur_id + 1,
             question: p.question
         })
-        console.log(this.state)
     }
 
     handleFloatBox() {
@@ -75,7 +73,6 @@ class EditorPage extends React.Component {
             cur_id: p.cur_id + 1,
             question: p.question
         })
-        console.log(this.state)
     }
 
     handleTextBox() {
@@ -85,7 +82,6 @@ class EditorPage extends React.Component {
             cur_id: p.cur_id + 1,
             question: p.question
         })
-        console.log(this.state)
     }
 
     handleRateBox() {
@@ -95,6 +91,96 @@ class EditorPage extends React.Component {
             cur_id: p.cur_id + 1,
             question: p.question
         })
+    }
+
+    setSingleIntro(id, intro) {
+        var p = this.state
+        p.question[id-1].q_content.intro = intro
+        this.setState({
+            ...p
+        })
+        console.log(this.state)
+    }
+
+    setSingleChoices(id, choices) {
+        var p = this.state
+        p.question[id-1].q_content.choices = choices
+        this.setState({
+            ...p
+        })
+        console.log(this.state)
+    }
+
+    setCheckIntro(id, intro) {
+        var p = this.state
+        p.question[id-1].q_content.intro = intro
+        this.setState({
+            ...p
+        })
+        console.log(this.state)
+    }
+
+    setCheckChoices(id, choices) {
+        var p = this.state
+        p.question[id-1].q_content.choices = choices
+        this.setState({
+            ...p
+        })
+        console.log(this.state)
+    }
+
+    setTextBox(id, intro) {
+        var p = this.state
+        p.question[id-1].q_content.intro = intro
+        this.setState({
+            ...p
+        })
+        console.log(this.state)
+    }
+
+    setDigitBox(id, content, index) {
+        var p = this.state
+        if(index === 0)
+            p.question[id-1].q_content.intro = content
+        else if(index === 1)
+            p.question[id-1].q_content.min = content
+        else if(index === 2)
+            p.question[id-1].q_content.max = content
+        else if(index === 3)
+            p.question[id-1].q_content.step = content
+        this.setState({
+            ...p
+        })
+        console.log(this.state)
+    }
+
+    setFloatBox(id, content, index) {
+        var p = this.state
+        if(index === 0)
+            p.question[id-1].q_content.intro = content
+        else if(index === 1)
+            p.question[id-1].q_content.min = content
+        else if(index === 2)
+            p.question[id-1].q_content.max = content
+        else if(index === 3)
+            p.question[id-1].q_content.step = content
+        else if(index === 4)
+            p.question[id-1].q_content.precious = content
+        this.setState({
+            ...p
+        })
+        console.log(this.state)
+    }
+
+    setRateBox(id, content, index) {
+        var p = this.state
+        if(index === 0)
+            p.question[id-1].q_content.intro = content
+        else if(index === 1)
+            p.question[id-1].q_content.max = content
+        this.setState({
+            ...p
+        })
         console.log(this.state)
     }
 
@@ -103,8 +189,10 @@ class EditorPage extends React.Component {
             return (
                 <GSingleBox 
                     id = {this.state.question.indexOf(q) + 1}
-                    data={q.questions}
+                    data={q.q_content}
                     onDelete={(e)=>this.handleDelete(e)}
+                    setIntro={(id, intro)=>this.setSingleIntro(id, intro)}
+                    setChoices={(id, choices)=>this.setSingleChoices(id, choices)}
                 />
             )
         }
@@ -112,8 +200,10 @@ class EditorPage extends React.Component {
             return (
                 <GCheckBox 
                     id = {this.state.question.indexOf(q) + 1}
-                    data={q.questions}
+                    data={q.q_content}
                     onDelete={(e)=>this.handleDelete(e)}
+                    setIntro={(id, intro)=>this.setCheckIntro(id, intro)}
+                    setChoices={(id, choices)=>this.setCheckChoices(id, choices)}
                 />  
             )
         }
@@ -121,8 +211,9 @@ class EditorPage extends React.Component {
             return (
                 <GDigitBox 
                     id = {this.state.question.indexOf(q) + 1}
-                    data={q.questions}
+                    data={q.q_content}
                     onDelete={(e)=>this.handleDelete(e)}
+                    setContent={(id, content, index)=>this.setDigitBox(id, content, index)}
                 />
             )
         }
@@ -130,8 +221,9 @@ class EditorPage extends React.Component {
             return (
                 <GFloatBox 
                     id = {this.state.question.indexOf(q) + 1}
-                    data={q.questions}
+                    data={q.q_content}
                     onDelete={(e)=>this.handleDelete(e)}
+                    setContent={(id, content, index, precious)=>this.setFloatBox(id, content, index, precious)}
                 />
             )
         }
@@ -139,8 +231,9 @@ class EditorPage extends React.Component {
             return (
                 <GTextBox 
                     id = {this.state.question.indexOf(q) + 1}
-                    data={q.questions}
+                    data={q.q_content}
                     onDelete={(e)=>this.handleDelete(e)}
+                    setContent={(id, intro)=>this.setTextBox(id, intro)}
                 />
             )
         }
@@ -148,8 +241,9 @@ class EditorPage extends React.Component {
             return (
                 <GRateBox 
                     id = {this.state.question.indexOf(q) + 1}
-                    data={q.questions}
+                    data={q.q_content}
                     onDelete={(e)=>this.handleDelete(e)}
+                    setContent={(id, intro, index)=>this.setRateBox(id, intro, index)}
                 />
             )
         }
@@ -234,13 +328,13 @@ class EditorPage extends React.Component {
                             }
                         </Content>
                     </Layout>
-                    <div style={{
+                    {/* <div style={{
                         border: '0px solid #1E90FF',
                         WebkitBoxShadow: '0px 3px 3px #c8c8c8', MozBoxShadow: '0px 3px 3px #c8c8c8', boxShadow: '0px 3px 3px #c8c8c8',
                         width: (document.body.clientWidth)*0.2, height:'660px', position:'fixed',
                         right: '15px', top: '85px', backgroundColor: 'white'
                     }}>
-                    </div>
+                    </div> */}
                 </Layout>
             </Layout>
         )
