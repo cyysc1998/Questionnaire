@@ -47,15 +47,15 @@ export default class Test extends React.Component{
         }
         return(
             <div style={{textAlign:'center'}}>
-                {/* <SingleBox data = {single}/>
+                <SingleBox data = {single}/>
                 <br/>
                 <CheckBox data = {check}/>
                 <br/>
                 <TextBox data={text}/>
                 <br/>
                 <RateBox data = {ra}/>
-                <br/> */}
-                {/* <DigitBox data = {data}/> */}
+                <br/> 
+                <DigitBox data = {data}/>
                 <GSingleBox/>
             </div>
         )
