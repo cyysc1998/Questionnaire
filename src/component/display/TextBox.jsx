@@ -15,19 +15,14 @@ class TextBox extends React.Component {
 
     onChange = ({ target: { value } }) => {
         this.setState({ value });
-        this.props.setTextBox(value)
-        // console.log(this.state.value);
+        this.props.setTextBox(this.props.id, value, 4)
     };
 
     render() {
         const { value } = this.state;
 
         const data = this.props.data
-        // const data = {
-        //     id: 1,
-        //     intro: "textArea"
-        // }
-        const intro = <span style={{fontWeight: 'bold', fontSize: '15px'}}>{this.props.id}. {data.intro}</span>
+        const intro = <span style={{fontWeight: 'bold', fontSize: '15px'}}>{this.props.id+1}. {data.intro}</span>
 
         return (
             <div style={{border: '0px solid #1E90FF', width: '100%'}}>

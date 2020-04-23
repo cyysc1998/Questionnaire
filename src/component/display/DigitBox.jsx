@@ -14,7 +14,7 @@ class DigitBox extends React.Component {
             this.setState({ 
                 value: value
             })
-            this.props.setDigitBox(value)
+            this.props.setDigitBox(this.props.id, value, this.props.type)
         }
     }
 
@@ -22,7 +22,7 @@ class DigitBox extends React.Component {
 
         const data = this.props.data
         
-        const intro = <span style={{fontWeight: 'bold', fontSize: '15px'}}>{this.props.id}. {data.intro}</span>
+        const intro = <span style={{fontWeight: 'bold', fontSize: '15px'}}>{this.props.id+1}. {data.intro}</span>
 
         return (
             <div style={{border: '0px solid #1E90FF', width: '100%'}}>
@@ -30,7 +30,7 @@ class DigitBox extends React.Component {
                     {intro} <p/>
                     <div style={{width: '95%', textAlign: 'left', margin: '0 auto'}}>
                         {
-                            this.props.type === 0 ?
+                            this.props.type === 2 ?
                             <InputNumber min={data.min} max={data.max}
                                 onChange={(e)=>this.onChange(e)} 
                                 style={{width: '60%'}}

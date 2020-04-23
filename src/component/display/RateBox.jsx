@@ -15,15 +15,14 @@ class RateBox extends React.Component {
         this.setState({ 
             value: value 
         });
-        // this.props.setTextBox(value)
-        console.log(value);
+        this.props.setRateBox(this.props.id, value, 5)
     };
 
     render() {
         const { value } = this.state;
 
         const data = this.props.data
-        const intro = <span style={{fontWeight: 'bold', fontSize: '15px'}}>{this.props.id}. {data.intro}</span>
+        const intro = <span style={{fontWeight: 'bold', fontSize: '15px'}}>{this.props.id+1}. {data.intro}</span>
 
         return (
             <div style={{border: '0px solid #1E90FF', width: '100%'}}>

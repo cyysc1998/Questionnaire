@@ -14,7 +14,7 @@ class SingleBox extends React.Component {
         this.setState({
             value: e.target.value,
         });
-        this.props.setSingleRadio(e.target.value)
+        this.props.setSingleBox(this.props.id, e.target.value, 0)
     };
 
     render() {
@@ -25,11 +25,11 @@ class SingleBox extends React.Component {
         };
         const data = this.props.data
         
-        const intro = <span style={{fontWeight: 'bold', fontSize: '15px'}}>{this.props.id}. {data.intro}</span>
+        const intro = <span style={{fontWeight: 'bold', fontSize: '15px'}}>{this.props.id+1}. {data.intro}</span>
         const choices = data.choices
 
         const Radios = choices.map((number)=>
-            <Radio style={radioStyle} value={choices.indexOf(number)}>
+            <Radio style={radioStyle} key={choices.indexOf(number)} value={choices.indexOf(number)}>
                 {number}
             </Radio>
         )

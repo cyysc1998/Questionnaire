@@ -4,6 +4,7 @@ import CheckBox from '../component/display/CheckBox'
 import DigitBox from '../component/display/DigitBox'
 import TextBox from '../component/display/TextBox'
 import RateBox from '../component/display/RateBox'
+import {Button, Modal} from 'antd'
 
 const backStyle = {
     border: '0px solid',
@@ -45,7 +46,8 @@ class View extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            questions: []
+            questions: [],
+            record: []
         }
     }
 
@@ -82,7 +84,6 @@ class View extends React.Component {
                 {
                     type: 3,
                     intro: "您认为应几天出一次门？",
-                    qtype: 1,
                     min: 1,
                     max: 10,
                     step: 0.1
@@ -103,30 +104,71 @@ class View extends React.Component {
     getComponent(question) {
         if(question.type === 0) {
             return (
-                <SingleBox id = {this.state.questions.indexOf(question) + 1} data = {question}/>
+                <SingleBox id = {this.state.questions.indexOf(question)} data = {question}
+                    setSingleBox = {(id, value, type)=>this.getContent(id, value, type)}
+                />
             ) 
         }
         else if(question.type === 1) {
             return (
-                <CheckBox id = {this.state.questions.indexOf(question) + 1} data = {question}/>
+                <CheckBox id = {this.state.questions.indexOf(question)} data = {question}
+                    setCheckBox = {(id, value, type)=>this.getContent(id, value, type)}
+                />
             )
         }
         else if(question.type === 2 || question.type === 3) {
             return (
-                <DigitBox id = {this.state.questions.indexOf(question) + 1} type = {question.qtype} data = {question}/>
+                <DigitBox id = {this.state.questions.indexOf(question)} type = {question.type} data = {question}
+                    setDigitBox = {(id, value, type)=>this.getContent(id, value, type)}
+                />
             )
         }
         else if(question.type === 4) {
             return (
-                <TextBox id = {this.state.questions.indexOf(question) + 1} data = {question}/>
+                <TextBox id = {this.state.questions.indexOf(question)} data = {question}
+                    setTextBox = {(id, value, type)=>this.getContent(id, value, type)}
+                />
             )
         }
         else if(question.type === 5) {
             return (
-                <RateBox id = {this.state.questions.indexOf(question) + 1} data = {question}/>
+                <RateBox id = {this.state.questions.indexOf(question)} data = {question}
+                    setRateBox = {(id, value, type)=>this.getContent(id, value, type)}
+                />
             )
         }
     }
+
+    getContent(id, value, type) {
+        if(type <= 5) {
+            var _state = this.state
+            _state.record[id] = value
+            this.setState({
+                ..._state
+            })
+        }
+        console.log(this.state.record)
+    }
+
+    showModal = () => {
+        this.setState({
+            visible: true,
+        });
+    };
+    
+    handleOk = e => {
+        console.log(e);
+        this.setState({
+            visible: false,
+        });
+    };
+
+    handleCancel = e => {
+        console.log(e);
+        this.setState({
+            visible: false,
+        });
+    };
 
     render() {
         return (
@@ -143,17 +185,30 @@ class View extends React.Component {
                         <br/>
                         {
                             this.state.questions.map((question) => (
-                                <div key={question.id}>
+                                <div key={this.state.questions.indexOf(question)}>
                                     {
                                         this.getComponent(question)
                                     }
-                                    {/* <hr style={{border:'1px dashed #0000fff'}}/> */}
-                                    {/* <br/> */}
                                 </div>
                             ))   
                         }
-                        <br/>
                         
+                        <Button type="primary" onClick={this.showModal} onClick={this.showModal} size="medium">
+                            提交
+                        </Button>
+                        <Modal
+                            title="提示"
+                            visible={this.state.visible}
+                            onOk={this.handleOk}
+                            onCancel={this.handleCancel}
+                            okText="确认"
+                            cancelText="取消"
+                        >
+                            <p>提交后无法修改，确认提交？</p>
+                        </Modal>
+                        <br/>
+                        <br/>
+                        <br/>
                     </div>
                 </div>
                 <br/>

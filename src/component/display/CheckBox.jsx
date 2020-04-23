@@ -28,8 +28,7 @@ class CheckBox extends React.Component {
                 value: newValue
             })
         }
-        console.log(this.state.value)
-        this.props.setCheckBox(this.state.value)
+        this.props.setCheckBox(this.props.id, this.state.value, 1)
     };
 
     render() {
@@ -41,11 +40,11 @@ class CheckBox extends React.Component {
         };
         const data = this.props.data
         
-        const intro = <span style={{fontWeight: 'bold', fontSize: '15px'}}>{this.props.id}. {data.intro}</span>
+        const intro = <span style={{fontWeight: 'bold', fontSize: '15px'}}>{this.props.id+1}. {data.intro}</span>
         const choices = data.choices
 
         const Checkboxs = choices.map((number)=>
-            <Checkbox style={checkBoxStyle} value={choices.indexOf(number)} onChange={this.onChange}>
+            <Checkbox style={checkBoxStyle} key={choices.indexOf(number)} value={choices.indexOf(number)} onChange={this.onChange}>
                 {number}
             </Checkbox>
         )
