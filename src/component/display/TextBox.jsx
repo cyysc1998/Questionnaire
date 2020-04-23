@@ -27,13 +27,12 @@ class TextBox extends React.Component {
         //     id: 1,
         //     intro: "textArea"
         // }
-        const intro = <span style={{fontWeight: 'bold', fontSize: '18px'}}>{data.id}. {data.intro}</span>
+        const intro = <span style={{fontWeight: 'bold', fontSize: '15px'}}>{this.props.id}. {data.intro}</span>
 
         return (
-            <div style={{border: '0px solid #1E90FF', width: '50%', webkitBoxShadow: '0px 3px 3px #c8c8c8',
-                mozBoxShadow: '0px 3px 3px #c8c8c8', boxShadow: '0px 3px 3px #c8c8c8'}}>
-                <div style={{width: '80%', textAlign: 'left', margin: '0 auto'}}>
-                    {intro} <br/>
+            <div style={{border: '0px solid #1E90FF', width: '100%'}}>
+                <div style={{width: '90%', textAlign: 'left', margin: '0 auto'}}>
+                    {intro} <p/> 
                     <div style={{width: '95%', textAlign: 'left', margin: '0 auto'}}>
                         <TextArea
                             value={value}
