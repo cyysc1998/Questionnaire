@@ -41,14 +41,20 @@ class EditorPage extends React.Component {
     handlePointMap(selectArray, id) {
         console.log("selectArray: " + selectArray)
         console.log("before :" + this.state.pointMap)
-        var _pointMap = this.state.pointMap
-        var p = this.state.pointMap[id]
-        for(var i=0; i<=selectArray.length; i++) {
-            p[selectArray[i]] = 1
+        var p = this.state.pointMap
+        console.log(p)
+        console.log(id)
+        for(let i=0; i<selectArray.length; i++) {
+            if(p[selectArray[i]] === -id)
+                p[selectArray[i]] = 0
         }
-        _pointMap[id] = p
+
+        for(let i=0; i<selectArray.length; i++) {
+            p[selectArray[i]] = -id
+        }
+        
         this.setState({
-            pointMap: _pointMap
+            pointMap: p
         })
         
         console.log("after: " + this.state.pointMap)

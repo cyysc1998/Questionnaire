@@ -90,8 +90,8 @@ class GSingleBox extends React.Component {
         children = []
         for(let i = 0; i < this.props.maxid; i++) {
             let disabled = false; 
-            for(var j = 0; j < this.props.pointMap; j++)
-                if( this.props.pointMap[i + 1] === 1 )
+            for(var j = 0; j < this.props.pointMap.length; j++)
+                if( this.props.pointMap[i + 1] !== -this.props.id && this.props.pointMap[i + 1] < 0)
                     disabled = true
             if(i === this.props.id - 1)
                 disabled = true
