@@ -8,6 +8,7 @@ import { createHashHistory } from 'history';
 import test from './component/generate/test'
 import EditorPage from './screen/editor'
 import View from './screen/view'
+import DashBoard from './screen/dashboard'
 
 const hashHistory = createHashHistory();
 
@@ -20,8 +21,9 @@ ReactDOM.render(
       <Route path="/login" component={LoginPage}/>
       <Route path="/register" component={RegisterPage}/>
       <Route path="/test" component={test}/>
-      <Route path="/editor" component={EditorPage}/>"
-      <Route path="/s" component={View}/>"
+      <Route path="/editor" component={EditorPage}/>
+      <Route path="/s" component={View}/>
+      <Route path="/home" component={DashBoard}/>
     </Router>
   ),
   document.getElementById('root')

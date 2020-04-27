@@ -281,16 +281,15 @@ class EditorPage extends React.Component {
             <Layout style={{ minHeight: '97vh'}} breakpoint='xs'>
                 <Header className="header">
                     <div className="logo" />
-                    <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['2']}>
+                    <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['1']}>
                         <Menu.Item key="1">问卷编辑</Menu.Item>
-                        <Menu.Item key="2">问卷预览</Menu.Item>
                     </Menu>
                 </Header>
                 <Layout>
                     <Sider width={200} className="site-layout-background">
                         <Menu
                             mode="inline"
-                            defaultSelectedKeys={['1']}
+                            defaultSelectedKeys={['2']}
                             defaultOpenKeys={['sub1','sub2','sub3']}
                             style={{ height: '100%', borderRight: 0 }}
                         >
@@ -299,37 +298,24 @@ class EditorPage extends React.Component {
                             title={
                             <span>
                                 <UserOutlined />
-                                <b>选择题</b>
+                                <b>问卷处理</b>
                             </span>
                             }
                         >
-                            <Menu.Item key="1"><Button type="link" style={{color:'grey'}} onClick={(e)=>this.handleSingleBox(e)}>单项选择</Button></Menu.Item>
-                            <Menu.Item key="2"><Button type="link" style={{color:'grey'}} onClick={(e)=>this.handleCheckBox(e)}>多项选择</Button></Menu.Item>
+                            <Menu.Item key="1"><Button type="link" style={{color:'grey'}} onClick={()=>(window.location.href = '#/home')}>管理问卷</Button></Menu.Item>
+                            <Menu.Item key="2"><Button type="link" style={{color:'grey'}} onClick={()=>(window.location.href = '#/editor')}>新建问卷</Button></Menu.Item>
                         </SubMenu>
                         <SubMenu
                             key="sub2"
                             title={
                             <span>
                                 <LaptopOutlined />
-                                <b>填空题</b>
+                                <b>用户信息</b>
                             </span>
                             }
                         >
-                            <Menu.Item key="3"><Button type="link" style={{color:'grey'}} onClick={(e)=>this.handleDigitBox(e)}>数字收集(整数)</Button></Menu.Item>
-                            <Menu.Item key="4"><Button type="link" style={{color:'grey'}} onClick={(e)=>this.handleFloatBox(e)}>数字收集(小数)</Button></Menu.Item>
-                            <Menu.Item key="5"><Button type="link" style={{color:'grey'}} onClick={(e)=>this.handleTextBox(e)}>文本收集</Button></Menu.Item>
-                        </SubMenu>
-                        <SubMenu
-                            key="sub3"
-                            title={
-                            <span>
-                                <NotificationOutlined />
-                                <b>其他问题</b>
-                            </span>
-                            }
-                        >
-                            <Menu.Item key="6"><Button type="link" style={{color:'grey'}} onDoubleClick={this.handleSingleBox}>级联问题</Button></Menu.Item>
-                            <Menu.Item key="7"><Button type="link" style={{color:'grey'}} onClick={(e)=>this.handleRateBox(e)}>评分收集</Button></Menu.Item>
+                            <Menu.Item key="3"><Button type="link" style={{color:'grey'}} onClick={(e)=>this.handleDigitBox(e)}>用户信息</Button></Menu.Item>
+                            <Menu.Item key="4"><Button type="link" style={{color:'grey'}} onClick={(e)=>this.handleFloatBox(e)}>退出</Button></Menu.Item>
                         </SubMenu>
                         </Menu>
                     </Sider>

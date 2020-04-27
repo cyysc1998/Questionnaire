@@ -55,7 +55,7 @@ class View extends React.Component {
         
 
         this.setState({
-            title: "你是新馆肺炎终结者吗?"
+            title: "你是新冠疫情终结者吗?"
         })
         this.setState({
             questions: [

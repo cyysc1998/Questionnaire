@@ -1,6 +1,6 @@
 import React from 'react';
 import { Form, Input, Button, Card } from 'antd';
-import { MinusCircleOutlined, PlusOutlined, EditFilled, MinusOutlined } from '@ant-design/icons';
+import { MinusCircleOutlined, PlusOutlined, BorderOutlined, MinusOutlined } from '@ant-design/icons';
 
 const formItemLayoutWithOutLabel = {
     wrapperCol: {
@@ -83,7 +83,7 @@ class GCheckBox extends React.Component {
                                         required={false}
                                         key={field.key}
                                     >
-                                        <EditFilled style={{fontSize: '20px'}}/> &nbsp;&nbsp;
+                                        <BorderOutlined style={{fontSize: '20px'}}/> &nbsp;&nbsp;
                                         <Form.Item
                                             {...field}
                                             validateTrigger={['onChange', 'onBlur']}
