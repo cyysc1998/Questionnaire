@@ -31,8 +31,27 @@ class EditorPage extends React.Component {
             cur_id: 1,
             question: [
                 
+            ],
+            pointMap: [
+
             ]
         }
+    }
+
+    handlePointMap(selectArray, id) {
+        console.log("selectArray: " + selectArray)
+        console.log("before :" + this.state.pointMap)
+        var _pointMap = this.state.pointMap
+        var p = this.state.pointMap[id]
+        for(var i=0; i<=selectArray.length; i++) {
+            p[selectArray[i]] = 1
+        }
+        _pointMap[id] = p
+        this.setState({
+            pointMap: _pointMap
+        })
+        
+        console.log("after: " + this.state.pointMap)
     }
 
     handleDelete(id) {
@@ -195,6 +214,9 @@ class EditorPage extends React.Component {
             return (
                 <GSingleBox 
                     id = {this.state.question.indexOf(q) + 1}
+                    maxid = {this.state.question.length}
+                    pointMap = {this.state.pointMap}
+                    handlePointMap = {(selectArray, id)=>this.handlePointMap(selectArray, id)}
                     data={q.q_content}
                     onDelete={(e)=>this.handleDelete(e)}
                     setIntro={(id, intro)=>this.setSingleIntro(id, intro)}

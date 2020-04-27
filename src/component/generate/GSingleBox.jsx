@@ -1,5 +1,5 @@
 import React from 'react';
-import { Form, Input, Button, Card } from 'antd';
+import { Form, Input, Button, Card, Modal, Select } from 'antd';
 import { MinusCircleOutlined, PlusOutlined, EditFilled, MinusOutlined, SettingOutlined } from '@ant-design/icons';
 
 const formItemLayoutWithOutLabel = {
@@ -28,6 +28,9 @@ const focusStyle = {
 
 var mainStyle = blurStyle;
 
+const { Option } = Select;
+var children = [];
+
 class GSingleBox extends React.Component {
     constructor(props) {
         super(props);
@@ -51,30 +54,101 @@ class GSingleBox extends React.Component {
 
     onFinish = (values, allValues) => {
         this.props.setChoices(this.props.id, allValues)
+        
+        var arr = []
+        var s = allValues.names
+        for (let i in s) {
+            arr.push(i); 
+        }
+        
+        this.setState({ 
+            choices: arr
+        })
     };
+
+    showModal = () => {
+        this.setState({
+            visible: true,
+        });
+    };
+    
+    handleOk = e => {
+        console.log(e);
+        this.setState({
+            visible: false,
+        });
+    };
+
+    handleCancel = e => {
+        console.log(e);
+        this.setState({
+            visible: false,
+        });
+    };
+
+    getChildren() {
+        children = []
+        for(let i = 0; i < this.props.maxid; i++) {
+            let disabled = false; 
+            for(var j = 0; j < this.props.pointMap; j++)
+                if( this.props.pointMap[i + 1] === 1 )
+                    disabled = true
+            if(i === this.props.id - 1)
+                disabled = true
+            children.push(<Option key={i+1} disabled={disabled}>{'问题 ' + (i+1)}</Option>);
+        }
+        return children
+    }
+
+    handleRelation(value) {
+        console.log(`selected ${value}`);
+        this.props.handlePointMap(value, this.props.id)
+    }
 
     render() {
         return (
             <Card style= {mainStyle} title={'问题'+this.props.id+'（单选）'}
                 extra={
                     <div>
-                    <Button
-                        type="primary"
-                        ghost
-                      
+                        <Button
+                            type="primary"
+                            ghost
+                            onClick={this.showModal}
                         >
-                        <SettingOutlined /> 逻辑
-                    </Button>
-                    &nbsp;&nbsp;&nbsp;
-                    <Button
-                        type="primary"
-                        ghost
-                        onClick={() => {
-                            this.props.onDelete(this.props.id)
-                        }}
+                            <SettingOutlined /> 逻辑
+                        </Button>
+                        <Modal
+                            title="请添加跳转逻辑"
+                            visible={this.state.visible}
+                            onOk={this.handleOk}
+                            onCancel={this.handleCancel}
+                            okText="确认"
+                            cancelText="取消"
                         >
-                        <MinusOutlined /> 删除
-                    </Button>
+                            {
+                                this.state.choices.map((choice) => (
+                                    <div key = {this.state.choices.indexOf(choice)}>
+                                        选项{this.state.choices.indexOf(choice) + 1}: &nbsp; &nbsp; &nbsp; &nbsp;
+                                        <Select mode="tags" style={{ width: '85%' }} placeholder="请选择关联选项" onChange={(e)=>this.handleRelation(e)}>
+                                            {this.getChildren()}
+                                        </Select>
+                                        <p/>
+                                    </div>
+                                ))
+                            }
+                            {/* {console.log(this.state.choices.length)}
+                            {console.log(this.state.choices[0])} */}
+                        </Modal>
+                        &nbsp;&nbsp;&nbsp;
+                        <Button
+                            type="primary"
+                            ghost
+                            onClick={() => {
+                                this.props.onDelete(this.props.id)
+                            }}
+                            >
+                            <MinusOutlined /> 删除
+                        </Button>
                     </div>
                 }
             >
@@ -138,7 +212,6 @@ class GSingleBox extends React.Component {
                             }}
                         </Form.List>
                     </Form>
-                    {/* <br/>  */}
                 </div>
             </Card>
         );
