@@ -10,19 +10,19 @@ class DigitBox extends React.Component {
     }
 
     onChange(value) {
-        if(value > this.props.data.min && value < this.props.data.max) {
-            this.setState({ 
-                value: value
-            })
-            this.props.setDigitBox(this.props.id, value, this.props.type)
-        }
+        if(this.props.type === 2)
+            value = Math.trunc(value)
+        this.setState({ 
+            value: value
+        })
+        this.props.setDigitBox(this.props.id, value, this.props.type)
     }
 
     render() {
 
         const data = this.props.data
         
-        const intro = <span style={{fontWeight: 'bold', fontSize: '15px'}}>{this.props.id+1}. {data.intro}</span>
+        const intro = <span style={{fontWeight: 'bold', fontSize: '15px'}}>{this.props.id+1}. {data.intro}（{data.min}-{data.max}）</span>
 
         return (
             <div style={{border: '0px solid #1E90FF', width: '100%'}}>

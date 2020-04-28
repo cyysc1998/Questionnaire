@@ -61,13 +61,18 @@ class View extends React.Component {
             questions: [
                 {
                     type: 0,
+                    display: true,
                     intro: "您对新冠疫情的了解来源于哪里？",
                     choices: [
                         "政府", "媒体", "社区", "校园"
+                    ],
+                    logic: [
+                        [1],[-1],[-1,],[-1]
                     ]
                 },
                 {
                     type: 1,
+                    display: true,
                     intro: "您对新冠疫情的了解来源于哪里？",
                     choices: [
                         "政府", "媒体", "社区", "校园"
@@ -75,14 +80,15 @@ class View extends React.Component {
                 },
                 {
                     type: 2,
+                    display: true,
                     intro: "您认为每天应使用几个口罩？",
-                    qtype: 0,
                     min: 1,
                     max: 10,
                     step: 1
                 },
                 {
                     type: 3,
+                    display: true,
                     intro: "您认为应几天出一次门？",
                     min: 1,
                     max: 10,
@@ -90,10 +96,12 @@ class View extends React.Component {
                 },
                 {
                     type: 4,
+                    display: true,
                     intro: "您对疫情防控有什么建议？",
                 },
                 {
                     type: 5,
+                    display: true,
                     intro: "您对本问卷的评价？",
                     max: 6
                 },
@@ -102,10 +110,16 @@ class View extends React.Component {
     }
 
     getComponent(question) {
+        if(question.display === false) {
+            return (
+                <div/>
+            )
+        }
         if(question.type === 0) {
             return (
                 <SingleBox id = {this.state.questions.indexOf(question)} data = {question}
                     setSingleBox = {(id, value, type)=>this.getContent(id, value, type)}
+                    setLogic = {(id, choice)=>this.setLogic(id, choice)}
                 />
             ) 
         }
@@ -148,6 +162,21 @@ class View extends React.Component {
             })
         }
         console.log(this.state.record)
+    }
+
+    setLogic(id, choice) {
+        var p = this.state.questions
+        for(let i=0; i<p[id].logic.length; i++) {
+            let sk = p[id].logic[i]
+            for(let j=0; j<sk.length; j++) {
+                if(sk[j] !== -1) {
+                    if(i === choice)
+                        p[sk[j]].display = true
+                    else
+                        p[sk[j]].display = false
+                }
+            }
+        }
     }
 
     showModal = () => {
@@ -193,7 +222,7 @@ class View extends React.Component {
                             ))   
                         }
                         
-                        <Button type="primary" onClick={this.showModal} onClick={this.showModal} size="medium">
+                        <Button type="primary" onClick={this.showModal} size="medium">
                             提交
                         </Button>
                         <Modal

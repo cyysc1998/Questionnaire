@@ -1,6 +1,6 @@
 import React from 'react';
 import { Form, Input, Button, Card, Modal, Select } from 'antd';
-import { MinusCircleOutlined, PlusOutlined, EditFilled, MinusOutlined, SettingOutlined } from '@ant-design/icons';
+import { MinusCircleOutlined, PlusOutlined, RightCircleOutlined, MinusOutlined, SettingOutlined } from '@ant-design/icons';
 
 const formItemLayoutWithOutLabel = {
     wrapperCol: {
@@ -136,8 +136,6 @@ class GSingleBox extends React.Component {
                                     </div>
                                 ))
                             }
-                            {/* {console.log(this.state.choices.length)}
-                            {console.log(this.state.choices[0])} */}
                         </Modal>
                         &nbsp;&nbsp;&nbsp;
                         <Button
@@ -168,7 +166,7 @@ class GSingleBox extends React.Component {
                                         required={false}
                                         key={field.key}
                                     >
-                                        <EditFilled style={{fontSize: '20px'}}/> &nbsp;&nbsp;
+                                        <RightCircleOutlined style={{fontSize: '20px'}}/> &nbsp;&nbsp;
                                         <Form.Item
                                             {...field}
                                             validateTrigger={['onChange', 'onBlur']}

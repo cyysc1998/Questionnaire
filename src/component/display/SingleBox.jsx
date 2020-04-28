@@ -15,6 +15,7 @@ class SingleBox extends React.Component {
             value: e.target.value,
         });
         this.props.setSingleBox(this.props.id, e.target.value, 0)
+        this.props.setLogic(this.props.id, e.target.value)
     };
 
     render() {

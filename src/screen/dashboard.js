@@ -1,7 +1,7 @@
 import React from 'react';
 import { UserOutlined, LaptopOutlined} from '@ant-design/icons';
 import { Layout, Menu, Button} from 'antd';
-import { Card, Col, Row } from 'antd';
+import {Col, Row } from 'antd';
 import QuestionCard from '../component/manage/QuestionCard'
 
 import moment from 'moment';

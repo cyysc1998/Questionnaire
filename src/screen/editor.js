@@ -5,7 +5,7 @@ import GDigitBox from '../component/generate/GDigitBox'
 import GFloatBox from '../component/generate/GFloatBox'
 import GTextBox from '../component/generate/GTextBox'
 import GRateBox from '../component/generate/GRateBox'
-import { UserOutlined, LaptopOutlined, NotificationOutlined, ArrowUpOutlined } from '@ant-design/icons';
+import { UserOutlined, LaptopOutlined, ArrowUpOutlined } from '@ant-design/icons';
 import { Layout, Menu, Button, Switch, Input, DatePicker, Modal} from 'antd';
 
 import moment from 'moment';
@@ -33,20 +33,17 @@ class EditorPage extends React.Component {
                 
             ],
             pointMap: [
-
+                
             ]
         }
     }
 
     handlePointMap(selectArray, id) {
-        console.log("selectArray: " + selectArray)
-        console.log("before :" + this.state.pointMap)
         var p = this.state.pointMap
-        console.log(p)
-        console.log(id)
-        for(let i=0; i<selectArray.length; i++) {
-            if(p[selectArray[i]] === -id)
-                p[selectArray[i]] = 0
+        for(let i=0; i<this.state.question.length + 5; i++) {
+            if(p[i] === -id) {
+                p[i] = 0
+            }
         }
 
         for(let i=0; i<selectArray.length; i++) {
@@ -54,17 +51,20 @@ class EditorPage extends React.Component {
         }
         
         this.setState({
-            pointMap: p
+            pointMap: p,
         })
-        
-        console.log("after: " + this.state.pointMap)
     }
 
     handleDelete(id) {
         var _state = this.state
         
         _state.question.splice(id-1, 1)
-        // _state.cur_id = Math.max(..._state.question.map(x => x.id));
+
+        for(let i=0; i<this.state.question.length + 5; i++) {
+            if(_state.pointMap[i] === -id)
+                _state.pointMap[i] = 0
+        }
+
         this.setState({ 
             ..._state
         })
@@ -130,7 +130,7 @@ class EditorPage extends React.Component {
         this.setState({
             ...p
         })
-        console.log(this.state)
+        // console.log(this.state)
     }
 
     setSingleChoices(id, choices) {
@@ -139,7 +139,7 @@ class EditorPage extends React.Component {
         this.setState({
             ...p
         })
-        console.log(this.state)
+        // console.log(this.state)
     }
 
     setCheckIntro(id, intro) {
@@ -148,7 +148,7 @@ class EditorPage extends React.Component {
         this.setState({
             ...p
         })
-        console.log(this.state)
+        // console.log(this.state)
     }
 
     setCheckChoices(id, choices) {
@@ -157,7 +157,7 @@ class EditorPage extends React.Component {
         this.setState({
             ...p
         })
-        console.log(this.state)
+        // console.log(this.state)
     }
 
     setTextBox(id, intro) {
@@ -166,7 +166,7 @@ class EditorPage extends React.Component {
         this.setState({
             ...p
         })
-        console.log(this.state)
+        // console.log(this.state)
     }
 
     setDigitBox(id, content, index) {
@@ -294,6 +294,7 @@ class EditorPage extends React.Component {
         this.setState({
             visible: false,
         });
+        console.log(this.state)
     };
 
     handleCancel = e => {
