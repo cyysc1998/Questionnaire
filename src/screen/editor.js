@@ -7,6 +7,8 @@ import GTextBox from '../component/generate/GTextBox'
 import GRateBox from '../component/generate/GRateBox'
 import { UserOutlined, LaptopOutlined, ArrowUpOutlined } from '@ant-design/icons';
 import { Layout, Menu, Button, Switch, Input, DatePicker, Modal} from 'antd';
+import { Card } from 'antd'
+import axios from 'axios'
 
 import moment from 'moment';
 import 'moment/locale/zh-cn';
@@ -15,7 +17,7 @@ moment.locale('zh-cn');
 
 const { SubMenu } = Menu;
 const { Header, Sider, Content } = Layout;
-
+const { TextArea } = Input;
 
 
 function addQuestion(id, type) {
@@ -34,7 +36,18 @@ class EditorPage extends React.Component {
             ],
             pointMap: [
                 
-            ]
+            ],
+            setting: {
+                maxTimes: 1,
+                needRegister: 1,
+                maxTimesPerDay: 1,
+                resistrictTimes: 0,
+                finishTime: ""
+            },
+            metadata: {
+                title: "",
+                intro: ""
+            }
         }
     }
 
@@ -130,7 +143,6 @@ class EditorPage extends React.Component {
         this.setState({
             ...p
         })
-        // console.log(this.state)
     }
 
     setSingleChoices(id, choices) {
@@ -139,7 +151,6 @@ class EditorPage extends React.Component {
         this.setState({
             ...p
         })
-        // console.log(this.state)
     }
 
     setCheckIntro(id, intro) {
@@ -148,7 +159,6 @@ class EditorPage extends React.Component {
         this.setState({
             ...p
         })
-        // console.log(this.state)
     }
 
     setCheckChoices(id, choices) {
@@ -157,7 +167,6 @@ class EditorPage extends React.Component {
         this.setState({
             ...p
         })
-        // console.log(this.state)
     }
 
     setTextBox(id, intro) {
@@ -166,7 +175,6 @@ class EditorPage extends React.Component {
         this.setState({
             ...p
         })
-        // console.log(this.state)
     }
 
     setDigitBox(id, content, index) {
@@ -283,6 +291,62 @@ class EditorPage extends React.Component {
         }
     }
 
+    handleTitle(e) {
+        var _state = this.state
+        _state.metadata.title = e.target.value
+        this.setState({
+            ..._state
+        })
+    }
+
+    handleIntro = ({ target: { value } }) => {
+        var _state = this.state
+        _state.metadata.intro = value
+        this.setState({
+            ..._state
+        })
+    };
+
+    handleMaxTimes(e) {
+        var _state = this.state
+        _state.setting.resistrictTimes = e.target.value
+        this.setState({
+            ..._state
+        })
+    }
+
+    handleSwitchRegister(e) {
+        var _state = this.state
+        _state.setting.needRegister = e
+        this.setState({
+            ..._state
+        })
+    }
+
+    handleSwitchTimes(e) {
+        var _state = this.state
+        _state.setting.maxTimes = e
+        this.setState({
+            ..._state
+        })
+    }
+
+    handleSwitchTimesPerDay(e) {
+        var _state = this.state
+        _state.setting.maxTimesPerDay = e
+        this.setState({
+            ..._state
+        })
+    }
+
+    handleDatePicker(date, dateString) {
+        var _state = this.state
+        _state.setting.finishTime = dateString
+        this.setState({
+            ..._state
+        })
+    }
+
     showModal = () => {
         this.setState({
             visible: true,
@@ -295,6 +359,22 @@ class EditorPage extends React.Component {
             visible: false,
         });
         console.log(this.state)
+
+        axios({
+            method:'post',
+            url: '/api/editor',
+            data: {
+                content: this.state.question,
+                metadata: this.state.metadata,
+                setting: this.state.setting
+            },
+        })
+        .then(function(response) {
+            console.log(response.data)
+        })
+        .catch(function(error) {
+            console.log(error);
+        }) 
     };
 
     handleCancel = e => {
@@ -357,6 +437,24 @@ class EditorPage extends React.Component {
                                 minHeight: 280,
                             }}
                         >
+                            <Card style={{width: '70%', WebkitBoxShadow: '0px 3px 3px #c8c8c8', MozBoxShadow: '0px 3px 3px #c8c8c8', boxShadow: '0px 3px 3px #c8c8c8'}}>
+                                <div style={{width: '80%', textAlign: 'left', margin: '0 auto'}}>
+                                    <h3 style={{fontWeight: 'bold', color: '#1890FF'}}>问卷标题：</h3>
+                                    <Input placeholder="请在此输入问卷标题" style={{ width: '90%'}} onChange={(e)=>this.handleTitle(e)}/>
+                                    <br/>
+                                    <br/>
+                                    <h3 style={{fontWeight: 'bold', color: '#1890FF'}}>问卷简介：</h3>
+                                    
+                                    <TextArea placeholder="请在此输入问卷简介" style={{ width: '90%'}}
+                                        autoSize={{ minRows: 3, maxRows: 6 }}
+                                        onChange={(e)=>this.handleIntro(e)}
+                                    />
+
+                                    <br/>
+                                </div>
+                            </Card>
+                            <br/>
+                            <br/>
                             {
                                 this.state.question.map((question) => (
                                     <div key={question.id}>
@@ -376,14 +474,14 @@ class EditorPage extends React.Component {
                     }}>
                         <div style={{width:'70%', margin: '15px auto'}}>
                             <p><b>设置：</b></p>
-                            <span>允许非注册用户填写：</span>&nbsp;&nbsp;&nbsp;&nbsp;<Switch defaultChecked/> <p/>
-                            <span>是否限制填写次数：</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<Switch defaultChecked/> <p/>
-                            <span>是否限制每日填写次数：</span><Switch defaultChecked/> <p/>
-                            <Input addonBefore="最大填写次数" placeholder="请在此输入" /> <p/>
-                        
+                            <span>允许非注册用户填写：</span>&nbsp;&nbsp;&nbsp;&nbsp;<Switch defaultChecked onChange={(e)=>this.handleSwitchRegister(e)}/> <p/>
+                            <span>是否限制填写次数：</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<Switch defaultChecked onChange={(e)=>this.handleSwitchTimes(e)}/> <p/>
+                            <span>是否限制每日填写次数：</span><Switch defaultChecked onChange={(e)=>this.handleSwitchTimesPerDay(e)}/> <p/>
+                            <Input addonBefore="最大填写次数" placeholder="请在此输入" onChange={(e)=>this.handleMaxTimes(e)}/> <p/>
+                            
                             <Input.Group compact>
                                 <Input style={{ width: '40%' }} defaultValue="截止日期" />
-                                <DatePicker style={{ width: '60%' }} />
+                                <DatePicker style={{ width: '60%' }} onChange={(e, t)=>this.handleDatePicker(e, t)}/>
                             </Input.Group>
                             
                             <p/>
@@ -394,7 +492,7 @@ class EditorPage extends React.Component {
                                 <Modal
                                     title="提示"
                                     visible={this.state.visible}
-                                    onOk={this.handleOk}
+                                    onOk={(e)=>this.handleOk(e)}
                                     onCancel={this.handleCancel}
                                     okText="确认"
                                     cancelText="取消"

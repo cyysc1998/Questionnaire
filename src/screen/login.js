@@ -60,7 +60,7 @@ class LoginPanel extends Component {
 
     handleResponce(res) {
         if(res >= 0) {
-            window.location.href = "http://47.75.111.40";
+            window.location.href = "#/home";
         }
         else{
             this.setState({ 
