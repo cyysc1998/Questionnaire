@@ -47,6 +47,9 @@ class EditorPage extends React.Component {
             metadata: {
                 title: "",
                 intro: ""
+            },
+            related: {
+
             }
         }
     }
@@ -223,6 +226,14 @@ class EditorPage extends React.Component {
         console.log(this.state)
     }
 
+    addRelated(value, u_id, c_id) {
+        var p = this.state
+        p.related[u_id] = value
+        this.setState({
+            ...p
+        })
+    }
+
     getComponent(q) {
         if(q.type === 0) {
             return (
@@ -235,6 +246,7 @@ class EditorPage extends React.Component {
                     onDelete={(e)=>this.handleDelete(e)}
                     setIntro={(id, intro)=>this.setSingleIntro(id, intro)}
                     setChoices={(id, choices)=>this.setSingleChoices(id, choices)}
+                    addRelated={(value, u_id, c_id)=>this.addRelated(value, u_id, c_id)}
                 />
             )
         }
