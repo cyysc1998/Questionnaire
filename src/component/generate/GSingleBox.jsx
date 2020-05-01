@@ -100,8 +100,8 @@ class GSingleBox extends React.Component {
         return children
     }
 
-    handleRelation(value) {
-        console.log(`selected ${value}`);
+    handleRelation(value, key, y) {
+        console.log(`selected ${value}` , key, y);
         this.props.handlePointMap(value, this.props.id)
     }
 
@@ -129,7 +129,7 @@ class GSingleBox extends React.Component {
                                 this.state.choices.map((choice) => (
                                     <div key = {this.state.choices.indexOf(choice)}>
                                         选项{this.state.choices.indexOf(choice) + 1}: &nbsp; &nbsp; &nbsp; &nbsp;
-                                        <Select mode="tags" style={{ width: '85%' }} placeholder="请选择关联选项" onChange={(e)=>this.handleRelation(e)}>
+                                        <Select mode="tags" id={this.state.choices.indexOf(choice)} style={{ width: '85%' }} placeholder="请选择关联选项" onChange={(e, id)=>this.handleRelation(e, id)}>
                                             {this.getChildren()}
                                         </Select>
                                         <p/>

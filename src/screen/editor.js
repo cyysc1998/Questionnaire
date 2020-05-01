@@ -47,6 +47,9 @@ class EditorPage extends React.Component {
             metadata: {
                 title: "",
                 intro: ""
+            },
+            relatedLinks: {
+                
             }
         }
     }
