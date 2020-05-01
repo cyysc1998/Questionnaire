@@ -13,7 +13,7 @@ class SelectBox extends React.Component {
     }
 
     handleChange(values) {
-        this.props.addRelated(values, this.props.u_id, this.props.c_id)
+        this.props.addRelated(values, this.props.id, this.props.c_id)
     }
 
     getChildren() {

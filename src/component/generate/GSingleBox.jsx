@@ -30,7 +30,7 @@ const focusStyle = {
 var mainStyle = blurStyle;
 
 const { Option } = Select;
-
+var children = []
 
 class GSingleBox extends React.Component {
     constructor(props) {
@@ -87,12 +87,24 @@ class GSingleBox extends React.Component {
         });
     };
 
-    
+    getChildren() {
+        children = []
+        for(let i = 0; i < this.props.maxid; i++) {
+            let disabled = false; 
+            for(var j = 0; j < this.props.pointMap.length; j++)
+                if( this.props.pointMap[i + 1] !== -this.props.id && this.props.pointMap[i + 1] < 0)
+                    disabled = true
+            if(i === this.props.id - 1)
+                disabled = true
+            children.push(<Option key={i+1} disabled={disabled}>{'问题 ' + (i+1)}</Option>);
+        }
+        return children
+    }
 
-    handleRelation(value, u_id, c_id) {
+    handleRelation(value, id, c_id) {
         console.log(`selected ${value}`);
         this.props.handlePointMap(value, this.props.id)
-        this.props.addRelated(value, u_id,  c_id);
+        this.props.addRelated(value, id,  c_id);
     }
 
     render() {
@@ -126,6 +138,7 @@ class GSingleBox extends React.Component {
                                             addRelated = {(value, u_id, c_id)=>this.handleRelation(value, u_id, c_id)}
                                             q_id = {this.props.id - 1}
                                             c_id = {this.state.choices.indexOf(choice)}
+                                            id = {this.props.id}
                                             maxid = {this.props.maxid}
                                             pointMap = {this.props.pointMap}
                                         />

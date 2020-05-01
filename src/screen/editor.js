@@ -228,7 +228,8 @@ class EditorPage extends React.Component {
 
     addRelated(value, u_id, c_id) {
         var p = this.state
-        p.related[u_id] = value
+        var qc = u_id + "-" + c_id
+        p.related[qc] = value
         this.setState({
             ...p
         })
@@ -376,9 +377,11 @@ class EditorPage extends React.Component {
             method:'post',
             url: '/api/editor',
             data: {
+                u_id: 1,
                 content: this.state.question,
                 metadata: this.state.metadata,
-                setting: this.state.setting
+                setting: this.state.setting,
+                related: this.state.related
             },
         })
         .then(function(response) {
