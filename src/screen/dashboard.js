@@ -2,7 +2,8 @@ import React from 'react';
 import { UserOutlined, LaptopOutlined} from '@ant-design/icons';
 import { Layout, Menu, Button} from 'antd';
 import {Col, Row } from 'antd';
-import QuestionCard from '../component/manage/QuestionCard'
+import QuestionCard from '../component/manage/QuestionCard';
+import userService from '../service/userService'
 
 import moment from 'moment';
 import 'moment/locale/zh-cn';
@@ -22,6 +23,9 @@ class DashBoard extends React.Component {
     }
 
     componentDidMount() {
+
+        userService.islogin()
+
         this.setState({
             questions: [
                 {

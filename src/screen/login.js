@@ -70,13 +70,15 @@ class LoginPanel extends Component {
     }
 
     handleChange(values) {
-        console.log({...values})
+        
         this.setState({
             userName: values.userName,
             passwd: values.password,
             remember: values.remember
         })
         const _this = this;
+        delete values.remember
+        console.log({...values})
         axios({
             method:'post',
             url: '/api/login',

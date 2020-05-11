@@ -326,7 +326,7 @@ class RegisterPage extends Component {
                                     {...tailFormItemLayout}
                                 >
                                     <Checkbox>
-                                        我已阅读 <a href="www.baidu.com">协议</a>
+                                        我已阅读 <a href="https://www.baidu.com">协议</a>
                                     </Checkbox>
                                 </Form.Item>
 

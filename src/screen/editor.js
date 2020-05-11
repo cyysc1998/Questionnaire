@@ -9,6 +9,7 @@ import { UserOutlined, LaptopOutlined, ArrowUpOutlined } from '@ant-design/icons
 import { Layout, Menu, Button, Switch, Input, DatePicker, Modal} from 'antd';
 import { Card } from 'antd'
 import axios from 'axios'
+import userService from '../service/userService'
 
 import moment from 'moment';
 import 'moment/locale/zh-cn';
@@ -52,6 +53,10 @@ class EditorPage extends React.Component {
 
             }
         }
+    }
+
+    componentDidMount() {
+        userService.islogin()
     }
 
     handlePointMap(selectArray, id) {
@@ -392,12 +397,17 @@ class EditorPage extends React.Component {
         }) 
     };
 
+
     handleCancel = e => {
         console.log(e);
         this.setState({
             visible: false,
         });
     };
+
+    handleLogout(e) {
+        userService.logOut();
+    }
 
     render() {
 
@@ -439,7 +449,7 @@ class EditorPage extends React.Component {
                             }
                         >
                             <Menu.Item key="3"><Button type="link" style={{color:'grey'}} onClick={(e)=>this.handleDigitBox(e)}>用户信息</Button></Menu.Item>
-                            <Menu.Item key="4"><Button type="link" style={{color:'grey'}} onClick={(e)=>this.handleFloatBox(e)}>退出</Button></Menu.Item>
+                            <Menu.Item key="4"><Button type="link" style={{color:'grey'}} onClick={(e)=>this.handleLogout(e)}>退出</Button></Menu.Item>
                         </SubMenu>
                         </Menu>
                     </Sider>
