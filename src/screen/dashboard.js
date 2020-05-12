@@ -4,6 +4,7 @@ import { Layout, Menu, Button} from 'antd';
 import {Col, Row } from 'antd';
 import QuestionCard from '../component/manage/QuestionCard';
 import userService from '../service/userService'
+import axios from 'axios'
 
 import moment from 'moment';
 import 'moment/locale/zh-cn';
@@ -26,34 +27,56 @@ class DashBoard extends React.Component {
 
         userService.islogin()
 
-        this.setState({
-            questions: [
-                {
-                    title: "大学生消费观",
-                    description: "课程问卷"
-                },
-                {
-                    title: "新冠疫情了解程度调查",
-                    description: "科学调查"
-                },
-                {
-                    title: "大学生消费观",
-                    description: "课程问卷"
-                },
-                {
-                    title: "新冠疫情了解程度调查",
-                    description: "科学调查"
-                },
-                {
-                    title: "大学生消费观",
-                    description: "课程问卷"
-                },
-                {
-                    title: "新冠疫情了解程度调查",
-                    description: "科学调查"
-                },
-            ]
+        let _this = this
+        axios({
+            method:'post',
+            url: '/api/manager',
+            data: {
+
+            }
         })
+        .then(function(response) {
+            console.log(response.data)
+            _this.setState({ 
+                questions: response.data.questions
+            })
+        })
+        .catch(function(error) {
+            console.log(error);
+        }) 
+
+        // this.setState({
+        //     questions: [
+        //         {
+        //             title: "大学生消费观",
+        //             description: "课程问卷"
+        //         },
+        //         {
+        //             title: "新冠疫情了解程度调查",
+        //             description: "科学调查"
+        //         },
+        //         {
+        //             title: "大学生消费观",
+        //             description: "课程问卷"
+        //         },
+        //         {
+        //             title: "新冠疫情了解程度调查",
+        //             description: "科学调查"
+        //         },
+        //         {
+        //             title: "大学生消费观",
+        //             description: "课程问卷"
+        //         },
+        //         {
+        //             title: "新冠疫情了解程度调查",
+        //             description: "科学调查"
+        //         },
+        //     ]
+        // })
+    }
+
+    handleLogout(e) {
+        userService.logOut();
     }
 
 
@@ -96,7 +119,7 @@ class DashBoard extends React.Component {
                             }
                         >
                             <Menu.Item key="3"><Button type="link" style={{color:'grey'}} >用户信息</Button></Menu.Item>
-                            <Menu.Item key="4"><Button type="link" style={{color:'grey'}} >退出</Button></Menu.Item>
+                            <Menu.Item key="4"><Button type="link" style={{color:'grey'}} onClick={(e)=>this.handleLogout(e)}>退出</Button></Menu.Item>
                         </SubMenu>
                         </Menu>
                     </Sider>
@@ -130,9 +153,7 @@ class DashBoard extends React.Component {
                                             </Col>
                                         ))
                                     }
-                                    
-                                        
-                                    
+                      
                                 </Row>
                             </div>
                         </Content>
