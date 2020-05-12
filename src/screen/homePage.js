@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {Link} from 'react-router-dom';
 import {Button} from 'antd';
 import 'antd/dist/antd.css';
+import userService from '../service/userService'
 
 var backStyle = {
     backgroundImage: 'url(assets/background.jpg)',
@@ -41,6 +42,10 @@ var sloganStyle = {
 
 class HomePage extends Component {
     
+    onBegin(e) {
+        userService.needlogin()
+    }
+
     render() {
         
         return(
@@ -67,11 +72,14 @@ class HomePage extends Component {
                         <h1 style={{color: 'white'}}>天天问卷，您身边的调查专家</h1>
                         <span style={{color: 'orange'}}>调查问卷、调查报告、市场调研</span>
                     </div>
-                    <Link to="/login">
-                        <Button type="primary" size="large" style={{width: "200px", height: "60px", fontSize: "18px", position:'relative', top: "270px"}}> 
-                            免费使用
-                        </Button>
-                    </Link>
+                    
+                    <Button type="primary" size="large" 
+                        style={{width: "200px", height: "60px", fontSize: "18px", position:'relative', top: "270px"}}
+                        onClick={(e)=>this.onBegin(e)}
+                    > 
+                        免费使用
+                    </Button>
+                    
                 </div>
                 <div id="bottompart" style={bottomStyle}>
 

@@ -34,7 +34,7 @@ class SingleBox extends React.Component {
                 {number}
             </Radio>
         )
-        
+        console.log(choices)
         return (
             <div style={{border: '0px solid #1E90FF', width: '100%'}}>
                 <div style={{width: '90%', textAlign: 'left', margin: '0 auto'}}>

@@ -141,6 +141,7 @@ class GSingleBox extends React.Component {
                                             id = {this.props.id}
                                             maxid = {this.props.maxid}
                                             pointMap = {this.props.pointMap}
+                                            key = {this.state.choices.indexOf(choice)}
                                         />
                                         <p/>
                                     </div>

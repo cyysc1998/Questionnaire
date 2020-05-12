@@ -18,6 +18,26 @@ class userService {
             console.log(error);
         }) 
     }
+
+    needlogin() {
+        axios({
+            method:'post',
+            url: '/api/islogin',
+            data: {
+                
+            },
+        })
+        .then(function(response) {
+            console.log(response.data)
+            if(response.data === false)
+                window.location.href = "#/login"
+            else
+                window.location.href = "#/home"
+        })
+        .catch(function(error) {
+            console.log(error);
+        }) 
+    }
     
     logOut() {
         axios({
