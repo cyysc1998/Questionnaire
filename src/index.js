@@ -9,6 +9,7 @@ import test from './component/generate/test'
 import EditorPage from './screen/editor'
 import View from './screen/view'
 import DashBoard from './screen/dashboard'
+import SuccessfulPage from './screen/successfulPage'
 
 const hashHistory = createHashHistory();
 
@@ -22,8 +23,9 @@ ReactDOM.render(
       <Route path="/register" component={RegisterPage}/>
       <Route path="/test" component={test}/>
       <Route path="/editor" component={EditorPage}/>
-      <Route path="/s" component={View}/>
+      <Route path="/s/:qId" component={View}/>
       <Route path="/home" component={DashBoard}/>
+      <Route path="/success/:qId" component={SuccessfulPage}/>
     </Router>
   ),
   document.getElementById('root')

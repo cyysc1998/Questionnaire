@@ -391,6 +391,7 @@ class EditorPage extends React.Component {
         })
         .then(function(response) {
             console.log(response.data)
+            window.location.href = "#/success/" + response.data
         })
         .catch(function(error) {
             console.log(error);
