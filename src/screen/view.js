@@ -77,61 +77,6 @@ class View extends React.Component {
         .catch(function(error) {
             console.log(error);
         }) 
-
-        
-        // this.setState({
-        //     title: "你是新冠疫情终结者吗?"
-        // })
-        // this.setState({
-        //     questions: [
-        //         {
-        //             type: 0,
-        //             display: true,
-        //             intro: "您对新冠疫情的了解来源于哪里？",
-        //             choices: [
-        //                 "政府", "媒体", "社区", "校园"
-        //             ],
-        //             logic: [
-        //                 [1],[-1],[-1,],[-1]
-        //             ]
-        //         },
-        //         {
-        //             type: 1,
-        //             display: true,
-        //             intro: "您对新冠疫情的了解来源于哪里？",
-        //             choices: [
-        //                 "政府", "媒体", "社区", "校园"
-        //             ]
-        //         },
-        //         {
-        //             type: 2,
-        //             display: true,
-        //             intro: "您认为每天应使用几个口罩？",
-        //             min: 1,
-        //             max: 10,
-        //             step: 1
-        //         },
-        //         {
-        //             type: 3,
-        //             display: true,
-        //             intro: "您认为应几天出一次门？",
-        //             min: 1,
-        //             max: 10,
-        //             step: 0.1
-        //         },
-        //         {
-        //             type: 4,
-        //             display: true,
-        //             intro: "您对疫情防控有什么建议？",
-        //         },
-        //         {
-        //             type: 5,
-        //             display: true,
-        //             intro: "您对本问卷的评价？",
-        //             max: 6
-        //         },
-        //     ]
-        // })
     }
 
     getComponent(question) {
