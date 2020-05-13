@@ -160,6 +160,29 @@ class View extends React.Component {
         this.setState({
             visible: false,
         });
+        var answers = {}
+        for(let i = 0; i <this.state.record.length; i++) {
+            let index = "" + i
+            answers[index] = this.state.record[i]
+            console.log(this.state.record[i])
+        }
+        console.log(answers)
+        axios({
+            method:'post',
+            url: '/api/submit',
+            data: {
+                qId: parseInt(this.props.match.params.qId),
+                answer: answers
+            },
+        })
+        .then(function(response) {
+            console.log(response.data)
+            if(response.data === true)
+                window.location.href = "#/submitsucceed"
+        })
+        .catch(function(error) {
+            console.log(error);
+        }) 
     };
 
     handleCancel = e => {
