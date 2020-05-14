@@ -1,6 +1,6 @@
 import React from 'react';
 import { UserOutlined, LaptopOutlined} from '@ant-design/icons';
-import { Layout, Menu, Button} from 'antd';
+import { Layout, Menu, Button, Empty} from 'antd';
 import {Col, Row } from 'antd';
 import QuestionCard from '../component/manage/QuestionCard';
 import userService from '../service/userService'
@@ -145,6 +145,7 @@ class DashBoard extends React.Component {
                             <div className="site-card-wrapper">
                                 <Row gutter={14}>
                                     {
+                                        this.state.questions.length > 0 ?
                                         this.state.questions.map(question => (
                                             <Col span={6}>
                                                 <QuestionCard title={question.title} description={question.description}/>
@@ -152,6 +153,10 @@ class DashBoard extends React.Component {
                                                 <br/>
                                             </Col>
                                         ))
+                                        :
+                                        <div style={{textAlign: 'center', width: '100%', marginTop: '70px'}}>
+                                            <Empty/>
+                                        </div>
                                     }
                       
                                 </Row>

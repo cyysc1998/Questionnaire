@@ -11,6 +11,7 @@ import View from './screen/view'
 import DashBoard from './screen/dashboard'
 import SuccessfulPage from './screen/successfulPage'
 import SubmitSuccessful from './screen/submitSuccessful'
+import Manage from './screen/manage'
 
 const hashHistory = createHashHistory();
 
@@ -28,6 +29,7 @@ ReactDOM.render(
       <Route path="/home" component={DashBoard}/>
       <Route path="/success/:qId" component={SuccessfulPage}/>
       <Route path="/submitsucceed" component={SubmitSuccessful}/>
+      <Route path="/content/:qId" component={Manage}/>
     </Router>
   ),
   document.getElementById('root')
