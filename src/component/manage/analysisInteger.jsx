@@ -27,26 +27,27 @@ class AnalysisInteger extends React.Component {
                 />
                 <div style={{textAlign: 'center'}}>
                     <Row gutter={16}>
-                        <Col span={8}>
+                        <Col span={3}>
                             <Statistic title="总和" value={this.props.data.sum} />
                         </Col>
-                        <Col span={8}>
+                        <Col span={3}>
                             <Statistic title="最小值" value={this.props.data.min} />
                         </Col>
-                        <Col span={8}>
+                        <Col span={3}>
                             <Statistic title="最大值" value={this.props.data.max} />
+                        </Col>
+                        <Col span={3}>
+                            <Statistic title="平均值" value={this.props.data.average} />
+                        </Col>
+                        <Col span={3}>
+                            <Statistic title="中位数" value={this.props.data.median} />
+                        </Col>
+                        <Col span={3}>
+                            <Statistic title="众数" value={this.props.data.mode} />
                         </Col>
                     </Row>
                     <Row gutter={16}>
-                        <Col span={8}>
-                            <Statistic title="平均值" value={this.props.data.average} />
-                        </Col>
-                        <Col span={8}>
-                            <Statistic title="中位数" value={this.props.data.median} />
-                        </Col>
-                        <Col span={8}>
-                            <Statistic title="众数" value={this.props.data.mode} />
-                        </Col>
+                        
                     </Row>
                 </div>
                 <br/>

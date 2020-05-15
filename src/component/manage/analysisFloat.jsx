@@ -27,26 +27,27 @@ class AnalysisFloat extends React.Component {
                 />
                 <div style={{textAlign: 'center'}}>
                     <Row gutter={16}>
-                        <Col span={8}>
+                        <Col span={3}>
                             <Statistic title="总和" value={this.props.data.sum} precision={2}/>
                         </Col>
-                        <Col span={8}>
+                        <Col span={3}>
                             <Statistic title="最小值" value={this.props.data.min} precision={2} />
                         </Col>
-                        <Col span={8}>
+                        <Col span={3}>
                             <Statistic title="最大值" value={this.props.data.max} precision={2} />
+                        </Col>
+                        <Col span={3}>
+                            <Statistic title="平均值" value={this.props.data.average} precision={2}/>
+                        </Col>
+                        <Col span={3}>
+                            <Statistic title="中位数" value={this.props.data.median} precision={2} />
+                        </Col>
+                        <Col span={3}>
+                            <Statistic title="众数" value={this.props.data.mode} precision={2} />
                         </Col>
                     </Row>
                     <Row gutter={16}>
-                        <Col span={8}>
-                            <Statistic title="平均值" value={this.props.data.average} precision={2}/>
-                        </Col>
-                        <Col span={8}>
-                            <Statistic title="中位数" value={this.props.data.median} precision={2} />
-                        </Col>
-                        <Col span={8}>
-                            <Statistic title="众数" value={this.props.data.mode} precision={2} />
-                        </Col>
+                        
                     </Row>
                 </div>
                 <br/>
