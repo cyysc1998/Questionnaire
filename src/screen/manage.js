@@ -9,6 +9,7 @@ import AnalysisInteger from '../component/manage/analysisInteger'
 import AnalysisFloat from '../component/manage/analysisFloat'
 import AnalysisText from '../component/manage/analysisText'
 import AnalysisRate from '../component/manage/analysisRate'
+import axios from 'axios'
 
 const { SubMenu } = Menu;
 const { Header, Sider, Content } = Layout;
@@ -25,7 +26,10 @@ class Manage extends React.Component {
                     finishTime: ""
                 },
                 answer: []
-            }
+            },
+            title: "",
+            intro: "",
+            finishTime: ""
         }
     }
 
@@ -154,7 +158,7 @@ class Manage extends React.Component {
                     },
                     {
                         type: 5,
-                        key: 5,
+                        key: 6,
                         question: "评分填写",
                         answerList: [
                             {
@@ -188,6 +192,7 @@ class Manage extends React.Component {
     handleTitleChange(e) {
         var _state = this.state
         _state.result.metadata.title = e.target.value;
+        _state.title = e.target.value
         this.setState({
             ..._state
         })
@@ -196,8 +201,37 @@ class Manage extends React.Component {
     handleIntroChange(e) {
         var _state = this.state
         _state.result.metadata.intro = e.target.value;
+        _state.intro = e.target.value
         this.setState({
             ..._state
+        })
+    }
+
+    handleDatePicker(date, dateString) {
+        var _state = this.state
+        _state.finishTime = dateString
+        this.setState({
+            ..._state
+        })
+    }
+
+    submitChange(e) {
+        console.log(this.state)
+        axios({
+            method:'post',
+            url: '/api/modified',
+            data: {
+                questionnaireId: this.props.match.params.qId,
+                title: this.state.title,
+                intro: this.state.intro,
+                finishTime: this.state.finishTime
+            }
+        })
+        .then(function(response) {
+            console.log(response.data)
+        })
+        .catch(function(error) {
+            console.log(error);
         })
     }
 
@@ -293,9 +327,9 @@ class Manage extends React.Component {
                                 <div style={{height: "16px"}}> </div>
                                
                                 <Input.Group compact>
-                                    <Input style={{ width: '15%' }} defaultValue="开始日期" disabled="true"/>
-                                    <Input style={{ width: '35%' }} value={this.state.result.metadata.startTime} disabled="true"/>
-                                    <Input style={{ width: '15%' }} defaultValue="截止日期" disabled="true"/>
+                                    <Input style={{ width: '15%' }} defaultValue="开始日期" disabled={true}/>
+                                    <Input style={{ width: '35%' }} value={this.state.result.metadata.startTime} disabled={true}/>
+                                    <Input style={{ width: '15%' }} defaultValue="截止日期" disabled={true}/>
                                     <DatePicker style={{ width: '35%' }} onChange={(e, t)=>this.handleDatePicker(e, t)}/>
                                 </Input.Group>
 
@@ -303,16 +337,20 @@ class Manage extends React.Component {
 
                                 <Input value={this.state.result.metadata.state} addonBefore="问卷状态" 
                                     style={{ width: '50%'}}
-                                    disabled="true"
+                                    disabled={true}
                                 />
 
                                 <Input value={this.state.result.metadata.answerNumber} addonBefore="收集问卷数" 
                                     style={{ width: '50%'}}
-                                    disabled="true"
+                                    disabled={true}
                                 />
                                 <div style={{height: "16px"}}> </div>
                                 <div style={{width: '100%', height: "16px", textAlign: 'center'}}> 
-                                    <Button type="primary">保存修改</Button>
+                                    <Button type="primary"
+                                        onClick={(e)=>this.submitChange(e)}
+                                    >
+                                        保存修改
+                                    </Button>
                                 </div>
                                 <br/>
                             </div>

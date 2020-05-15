@@ -1,4 +1,5 @@
 import React from 'react';
+import {Link} from 'react-router-dom'
 import { UserOutlined, LaptopOutlined} from '@ant-design/icons';
 import { Layout, Menu, Button, Empty} from 'antd';
 import {Col, Row } from 'antd';
@@ -132,23 +133,16 @@ class DashBoard extends React.Component {
                                 minHeight: 280,
                             }}
                         >
-                            {/* <div style={{float: "left"}}>
-                            {
-                                this.state.questions.map(question => (
-                                    // <div id = {this.state.questions.indexOf(question)}>
-                                        <QuestionCard title={question.title} description={question.description}/>
-                                    // </div>
-                                ))
-                            }
-                            </div> */}
 
                             <div className="site-card-wrapper">
                                 <Row gutter={14}>
                                     {
                                         this.state.questions.length > 0 ?
                                         this.state.questions.map(question => (
-                                            <Col span={6}>
-                                                <QuestionCard title={question.title} description={question.description}/>
+                                            <Col span={6} key = {question.qId}>
+                                                <Link to={"/content/" + question.qId}>
+                                                    <QuestionCard title={question.title} description={question.description}/>
+                                                </Link>
                                                 <br/>
                                                 <br/>
                                             </Col>

@@ -1,5 +1,5 @@
 import React from 'react'
-import {Table, Statistic, Row, Col} from 'antd'
+import {Table} from 'antd'
 
 const columns = [
     { title: "序号", dataIndex: "key", key: "key" },
