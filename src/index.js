@@ -5,13 +5,13 @@ import HomePage from './screen/homePage';
 import LoginPage from './screen//login'
 import RegisterPage from './screen/register'
 import { createHashHistory } from 'history';
-import test from './component/generate/test'
 import EditorPage from './screen/editor'
 import View from './screen/view'
 import DashBoard from './screen/dashboard'
 import SuccessfulPage from './screen/successfulPage'
 import SubmitSuccessful from './screen/submitSuccessful'
 import Manage from './screen/manage'
+import Test from './component/manage/analysisSingle'
 
 const hashHistory = createHashHistory();
 
@@ -23,7 +23,7 @@ ReactDOM.render(
       <Route path="/" exact component={HomePage}/>
       <Route path="/login" component={LoginPage}/>
       <Route path="/register" component={RegisterPage}/>
-      <Route path="/test" component={test}/>
+      <Route path="/test" component={Test}/>
       <Route path="/editor" component={EditorPage}/>
       <Route path="/s/:qId" component={View}/>
       <Route path="/home" component={DashBoard}/>
