@@ -34,154 +34,171 @@ class Manage extends React.Component {
     }
 
     componentDidMount() {
-        this.setState({
-            result: {
-                metadata: { 
-                    title: "问卷标题",
-                    intro: "问卷介绍",
-                    startTime: "2020-5-20",
-                    finishTime: "2020-6-20",
-                    state: "未截止",
-                    answerNumber: 10
-                },
-                answer: [
-                    {
-                        type: 0,
-                        key: 1,
-                        question: "单项选择",
-                        choices: [
-                            {
-                                key: 1,
-                                order: "选项一",
-                                answer: "jkfsjflds",
-                                userNumber: 2,
-                                percent: "50%",
-                                userList: "李四, 王五"
-                                
-                            },
-                            {
-                                key: 2,
-                                order: "选项二",
-                                answer: "选项二",
-                                userNumber: 2,
-                                percent: "50%",
-                                userList: "李四, 王五"
-                            },
-                        ]
-                    },
-                    {
-                        type: 1,
-                        key: 2,
-                        question: "多项选择",
-                        choices: [
-                            {
-                                key: 1,
-                                order: "选项一",
-                                answer: "jkfsjflds",
-                                userNumber: 2,
-                                percent: "50%",
-                                userList: "李四, 王五"
-                                
-                            },
-                            {
-                                key: 2,
-                                order: "选项二",
-                                answer: "选项二",
-                                userNumber: 2,
-                                percent: "50%",
-                                userList: "李四, 王五"
-                            },
-                        ]
-                    },
-                    {
-                        type: 2,
-                        key: 3,
-                        question: "整数填写",
-                        answerList: [
-                            {
-                                key: 1,
-                                answer : "10",
-                                user: '李四'
-                            },
-                            {
-                                key: 2,
-                                answer: "20",
-                                user: '张三'
-                            },
-                        ],
-                        sum: 30,
-                        average: 15,
-                        min: 10,
-                        max: 20,
-                        median: 10,
-                        mode: 10
-                    },
-                    {
-                        type: 3,
-                        key: 4,
-                        question: "小数填写",
-                        answerList: [
-                            {
-                                key: 1,
-                                answer : "10",
-                                user: '李四'
-                            },
-                            {
-                                key: 2,
-                                answer: "11",
-                                user: '张三'
-                            },
-                        ],
-                        sum: 12,
-                        average: 15,
-                        min: 10,
-                        max: 20,
-                        median: 10,
-                        mode: 10
-                    },
-                    {
-                        type: 4,
-                        key: 5,
-                        question: "文本填写",
-                        answerList: [
-                            {
-                                key: 1,
-                                answer : "10",
-                                user: "张三"
-                            },
-                            {
-                                key: 2,
-                                answer : "10",
-                                user: "李四"
-                            },
-                        ],
-                    },
-                    {
-                        type: 5,
-                        key: 6,
-                        question: "评分填写",
-                        answerList: [
-                            {
-                                key: 1,
-                                answer : "5.5/8",
-                                user: '李四'
-                            },
-                            {
-                                key: 2,
-                                answer: "6.5/8",
-                                user: '张三'
-                            },
-                        ],
-                        count: 8,
-                        average: 15,
-                        min: 10,
-                        max: 20,
-                        median: 10,
-                        mode: 10
-                    },
-                ]
-            }
+        let param = new URLSearchParams();
+        param.append("qId", this.props.match.params.qId);
+        axios({
+            method:'get',
+            url: '/api/analysis',
+            data: param
         })
+        .then(function(response) {
+            console.log(response.data)
+            this.setState({
+                result: response.data
+            })
+        })
+        .catch(function(error) {
+            console.log(error);
+        }) 
+        
+        // this.setState({
+        //     result: {
+        //         metadata: { 
+        //             title: "问卷标题",
+        //             intro: "问卷介绍",
+        //             startTime: "2020-5-20",
+        //             finishTime: "2020-6-20",
+        //             state: "未截止",
+        //             answerNumber: 10
+        //         },
+        //         answer: [
+        //             {
+        //                 type: 0,
+        //                 key: 1,
+        //                 question: "单项选择",
+        //                 choices: [
+        //                     {
+        //                         key: 1,
+        //                         order: "选项一",
+        //                         answer: "jkfsjflds",
+        //                         userNumber: 2,
+        //                         percent: "50%",
+        //                         userList: "李四, 王五"
+                                
+        //                     },
+        //                     {
+        //                         key: 2,
+        //                         order: "选项二",
+        //                         answer: "选项二",
+        //                         userNumber: 2,
+        //                         percent: "50%",
+        //                         userList: "李四, 王五"
+        //                     },
+        //                 ]
+        //             },
+        //             {
+        //                 type: 1,
+        //                 key: 2,
+        //                 question: "多项选择",
+        //                 choices: [
+        //                     {
+        //                         key: 1,
+        //                         order: "选项一",
+        //                         answer: "jkfsjflds",
+        //                         userNumber: 2,
+        //                         percent: "50%",
+        //                         userList: "李四, 王五"
+                                
+        //                     },
+        //                     {
+        //                         key: 2,
+        //                         order: "选项二",
+        //                         answer: "选项二",
+        //                         userNumber: 2,
+        //                         percent: "50%",
+        //                         userList: "李四, 王五"
+        //                     },
+        //                 ]
+        //             },
+        //             {
+        //                 type: 2,
+        //                 key: 3,
+        //                 question: "整数填写",
+        //                 answerList: [
+        //                     {
+        //                         key: 1,
+        //                         answer : "10",
+        //                         user: '李四'
+        //                     },
+        //                     {
+        //                         key: 2,
+        //                         answer: "20",
+        //                         user: '张三'
+        //                     },
+        //                 ],
+        //                 sum: 30,
+        //                 average: 15,
+        //                 min: 10,
+        //                 max: 20,
+        //                 median: 10,
+        //                 mode: 10
+        //             },
+        //             {
+        //                 type: 3,
+        //                 key: 4,
+        //                 question: "小数填写",
+        //                 answerList: [
+        //                     {
+        //                         key: 1,
+        //                         answer : "10",
+        //                         user: '李四'
+        //                     },
+        //                     {
+        //                         key: 2,
+        //                         answer: "11",
+        //                         user: '张三'
+        //                     },
+        //                 ],
+        //                 sum: 12,
+        //                 average: 15,
+        //                 min: 10,
+        //                 max: 20,
+        //                 median: 10,
+        //                 mode: 10
+        //             },
+        //             {
+        //                 type: 4,
+        //                 key: 5,
+        //                 question: "文本填写",
+        //                 answerList: [
+        //                     {
+        //                         key: 1,
+        //                         answer : "10",
+        //                         user: "张三"
+        //                     },
+        //                     {
+        //                         key: 2,
+        //                         answer : "10",
+        //                         user: "李四"
+        //                     },
+        //                 ],
+        //             },
+        //             {
+        //                 type: 5,
+        //                 key: 6,
+        //                 question: "评分填写",
+        //                 answerList: [
+        //                     {
+        //                         key: 1,
+        //                         answer : "5.5/8",
+        //                         user: '李四'
+        //                     },
+        //                     {
+        //                         key: 2,
+        //                         answer: "6.5/8",
+        //                         user: '张三'
+        //                     },
+        //                 ],
+        //                 count: 8,
+        //                 average: 15,
+        //                 min: 10,
+        //                 max: 20,
+        //                 median: 10,
+        //                 mode: 10
+        //             },
+        //         ]
+        //     }
+        // })
     }
 
 
