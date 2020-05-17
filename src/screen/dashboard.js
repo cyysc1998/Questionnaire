@@ -45,35 +45,6 @@ class DashBoard extends React.Component {
         .catch(function(error) {
             console.log(error);
         }) 
-
-        // this.setState({
-        //     questions: [
-        //         {
-        //             title: "大学生消费观",
-        //             description: "课程问卷"
-        //         },
-        //         {
-        //             title: "新冠疫情了解程度调查",
-        //             description: "科学调查"
-        //         },
-        //         {
-        //             title: "大学生消费观",
-        //             description: "课程问卷"
-        //         },
-        //         {
-        //             title: "新冠疫情了解程度调查",
-        //             description: "科学调查"
-        //         },
-        //         {
-        //             title: "大学生消费观",
-        //             description: "课程问卷"
-        //         },
-        //         {
-        //             title: "新冠疫情了解程度调查",
-        //             description: "科学调查"
-        //         },
-        //     ]
-        // })
     }
 
     handleLogout(e) {
