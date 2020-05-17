@@ -17,13 +17,14 @@ class AnalysisFloat extends React.Component {
     }
 
     render() {
-        var title = <span style={{fontSize: '17px'}}>{this.props.data.key}. {this.props.data.question} (整数收集)</span>
+        var title = <span style={{fontSize: '17px'}}>{this.props.data.key}. {this.props.data.question} (小数收集)</span>
         return (
             <div>
                 <Table
                     title={()=>title}
                     columns={columns}
                     dataSource={this.props.data.answerList}
+                    pagination = {{pageSize: 5}}
                 />
                 <div style={{textAlign: 'center'}}>
                     <Row gutter={16}>

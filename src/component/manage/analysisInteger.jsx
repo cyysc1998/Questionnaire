@@ -24,26 +24,27 @@ class AnalysisInteger extends React.Component {
                     title={()=>title}
                     columns={columns}
                     dataSource={this.props.data.answerList}
+                    pagination = {{pageSize: 5}}
                 />
                 <div style={{textAlign: 'center'}}>
                     <Row gutter={16}>
                         <Col span={3}>
-                            <Statistic title="总和" value={this.props.data.sum} />
+                            <Statistic title="总和" value={this.props.data.sum} precision={0}/>
                         </Col>
                         <Col span={3}>
-                            <Statistic title="最小值" value={this.props.data.min} />
+                            <Statistic title="最小值" value={this.props.data.min} precision={0}/>
                         </Col>
                         <Col span={3}>
-                            <Statistic title="最大值" value={this.props.data.max} />
+                            <Statistic title="最大值" value={this.props.data.max} precision={0}/>
                         </Col>
                         <Col span={3}>
-                            <Statistic title="平均值" value={this.props.data.average} />
+                            <Statistic title="平均值" value={this.props.data.average} precision={0}/>
                         </Col>
                         <Col span={3}>
-                            <Statistic title="中位数" value={this.props.data.median} />
+                            <Statistic title="中位数" value={this.props.data.median} precision={0}/>
                         </Col>
                         <Col span={3}>
-                            <Statistic title="众数" value={this.props.data.mode} />
+                            <Statistic title="众数" value={this.props.data.mode} precision={0}/>
                         </Col>
                     </Row>
                     <Row gutter={16}>

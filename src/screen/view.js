@@ -11,7 +11,7 @@ const backStyle = {
     border: '0px solid',
     padding: '0px',
     margin: '0 auto',
-    backgroundColor: '#F5F5F5',
+    backgroundColor: '#F5ECFD',
     backgroundAttachment: 'scroll',
     width: '100%',
     position: 'absolute',
@@ -29,7 +29,7 @@ const headImg = {
     height: '30vh',
     margin: '0 auto',
     position: 'relative',
-    marginTop: '60px',
+    marginTop: '40px',
     backgroundColor: '#F5F5F5',
     backgroundImage: 'url(assets/s.jpg)'
 }
@@ -160,6 +160,7 @@ class View extends React.Component {
         this.setState({
             visible: false,
         });
+
         var answers = {}
         for(let i = 0; i <this.state.record.length; i++) {
             let index = "" + i
@@ -207,7 +208,7 @@ class View extends React.Component {
                             <span style={{fontWeight: 'bold', fontSize: '14px'}}>{this.state.intro}</span> 
                         </div>
                     </div>
-                    <br/>
+                    
                     <div style={{width:'90%', textAlign:'center', margin: '0 auto'}}>
                         <br/>
                         <hr style={{height:'2px', backgroundColor: '#53A4F4'}}/>

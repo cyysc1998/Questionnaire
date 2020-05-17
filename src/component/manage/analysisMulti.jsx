@@ -23,6 +23,7 @@ class AnalysisMulti extends React.Component {
             <Table
                 title={()=>title}
                 columns={columns}
+                pagination = {{pageSize: 5}}
                 expandable={{
                 expandedRowRender: record => (
                     <div>

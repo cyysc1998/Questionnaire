@@ -7,7 +7,7 @@ import GTextBox from '../component/generate/GTextBox'
 import GRateBox from '../component/generate/GRateBox'
 import { UserOutlined, LaptopOutlined, ArrowUpOutlined } from '@ant-design/icons';
 import { Layout, Menu, Button, Switch, Input, DatePicker, Modal} from 'antd';
-import { Card } from 'antd'
+import { Card, message } from 'antd'
 import axios from 'axios'
 import userService from '../service/userService'
 
@@ -377,6 +377,23 @@ class EditorPage extends React.Component {
             visible: false,
         });
         console.log(this.state)
+
+        if(this.state.setting.resistrictTimes === null || this.state.setting.resistrictTimes === 0) {
+            message.error('请填写最大次数', 1.5)
+            return
+        }
+        else if(this.state.setting.finishTime === null || this.state.setting.finishTime === "") {
+            message.error('请填写截止时间', 1.5)
+            return
+        }
+        else if(this.state.metadata.title === null || this.state.metadata.title === "") {
+            message.error('请填写问卷名称', 1.5)
+            return
+        }
+        else if(this.state.metadata.intro === null || this.state.metadata.intro === "") {
+            message.error('请填写问卷简介', 1.5)
+            return
+        }
 
         axios({
             method:'post',

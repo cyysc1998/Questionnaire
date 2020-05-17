@@ -26,6 +26,7 @@ class analysisRate extends React.Component {
                     footer={()=>footer}
                     columns={columns}
                     dataSource={this.props.data.answerList}
+                    pagination = {{pageSize: 5}}
                 />
                 <div style={{textAlign: 'center'}}>
                     <Row gutter={16}>

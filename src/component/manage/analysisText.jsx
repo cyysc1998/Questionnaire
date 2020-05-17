@@ -23,6 +23,7 @@ class AnalysisText extends React.Component {
                 <Table
                     title={()=>title}
                     columns={columns}
+                    pagination = {{pageSize: 5}}
                     dataSource={this.props.data.answerList}
                 />
             </div>

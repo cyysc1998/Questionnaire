@@ -1,7 +1,7 @@
 import React from 'react';
 import { UserOutlined, LaptopOutlined} from '@ant-design/icons';
 import { Layout, Menu, Breadcrumb, Button, Divider} from 'antd';
-import {Input, DatePicker} from 'antd'
+import {Input, DatePicker, message} from 'antd'
 import userService from '../service/userService'
 import AnalysisSingle from '../component/manage/analysisSingle'
 import AnalysisMulti from '../component/manage/analysisMulti'
@@ -9,6 +9,7 @@ import AnalysisInteger from '../component/manage/analysisInteger'
 import AnalysisFloat from '../component/manage/analysisFloat'
 import AnalysisText from '../component/manage/analysisText'
 import AnalysisRate from '../component/manage/analysisRate'
+import {Link} from 'react-router-dom'
 import axios from 'axios'
 
 const { SubMenu } = Menu;
@@ -34,171 +35,28 @@ class Manage extends React.Component {
     }
 
     componentDidMount() {
-        let param = new URLSearchParams();
-        param.append("qId", this.props.match.params.qId);
+        var _this = this
         axios({
-            method:'get',
+            method:'post',
             url: '/api/analysis',
-            data: param
+            data: {
+                qId: parseInt(this.props.match.params.qId)
+            }
         })
         .then(function(response) {
             console.log(response.data)
-            this.setState({
-                result: response.data
-            })
+            if(response.data.verify === true) {
+                _this.setState({
+                    result: response.data,
+                    title: response.data.metadata.title,
+                    intro: response.data.metadata.intro
+                })
+            }
+            
         })
         .catch(function(error) {
             console.log(error);
         }) 
-        
-        // this.setState({
-        //     result: {
-        //         metadata: { 
-        //             title: "问卷标题",
-        //             intro: "问卷介绍",
-        //             startTime: "2020-5-20",
-        //             finishTime: "2020-6-20",
-        //             state: "未截止",
-        //             answerNumber: 10
-        //         },
-        //         answer: [
-        //             {
-        //                 type: 0,
-        //                 key: 1,
-        //                 question: "单项选择",
-        //                 choices: [
-        //                     {
-        //                         key: 1,
-        //                         order: "选项一",
-        //                         answer: "jkfsjflds",
-        //                         userNumber: 2,
-        //                         percent: "50%",
-        //                         userList: "李四, 王五"
-                                
-        //                     },
-        //                     {
-        //                         key: 2,
-        //                         order: "选项二",
-        //                         answer: "选项二",
-        //                         userNumber: 2,
-        //                         percent: "50%",
-        //                         userList: "李四, 王五"
-        //                     },
-        //                 ]
-        //             },
-        //             {
-        //                 type: 1,
-        //                 key: 2,
-        //                 question: "多项选择",
-        //                 choices: [
-        //                     {
-        //                         key: 1,
-        //                         order: "选项一",
-        //                         answer: "jkfsjflds",
-        //                         userNumber: 2,
-        //                         percent: "50%",
-        //                         userList: "李四, 王五"
-                                
-        //                     },
-        //                     {
-        //                         key: 2,
-        //                         order: "选项二",
-        //                         answer: "选项二",
-        //                         userNumber: 2,
-        //                         percent: "50%",
-        //                         userList: "李四, 王五"
-        //                     },
-        //                 ]
-        //             },
-        //             {
-        //                 type: 2,
-        //                 key: 3,
-        //                 question: "整数填写",
-        //                 answerList: [
-        //                     {
-        //                         key: 1,
-        //                         answer : "10",
-        //                         user: '李四'
-        //                     },
-        //                     {
-        //                         key: 2,
-        //                         answer: "20",
-        //                         user: '张三'
-        //                     },
-        //                 ],
-        //                 sum: 30,
-        //                 average: 15,
-        //                 min: 10,
-        //                 max: 20,
-        //                 median: 10,
-        //                 mode: 10
-        //             },
-        //             {
-        //                 type: 3,
-        //                 key: 4,
-        //                 question: "小数填写",
-        //                 answerList: [
-        //                     {
-        //                         key: 1,
-        //                         answer : "10",
-        //                         user: '李四'
-        //                     },
-        //                     {
-        //                         key: 2,
-        //                         answer: "11",
-        //                         user: '张三'
-        //                     },
-        //                 ],
-        //                 sum: 12,
-        //                 average: 15,
-        //                 min: 10,
-        //                 max: 20,
-        //                 median: 10,
-        //                 mode: 10
-        //             },
-        //             {
-        //                 type: 4,
-        //                 key: 5,
-        //                 question: "文本填写",
-        //                 answerList: [
-        //                     {
-        //                         key: 1,
-        //                         answer : "10",
-        //                         user: "张三"
-        //                     },
-        //                     {
-        //                         key: 2,
-        //                         answer : "10",
-        //                         user: "李四"
-        //                     },
-        //                 ],
-        //             },
-        //             {
-        //                 type: 5,
-        //                 key: 6,
-        //                 question: "评分填写",
-        //                 answerList: [
-        //                     {
-        //                         key: 1,
-        //                         answer : "5.5/8",
-        //                         user: '李四'
-        //                     },
-        //                     {
-        //                         key: 2,
-        //                         answer: "6.5/8",
-        //                         user: '张三'
-        //                     },
-        //                 ],
-        //                 count: 8,
-        //                 average: 15,
-        //                 min: 10,
-        //                 max: 20,
-        //                 median: 10,
-        //                 mode: 10
-        //             },
-        //         ]
-        //     }
-        // })
     }
 
 
@@ -234,11 +92,23 @@ class Manage extends React.Component {
 
     submitChange(e) {
         console.log(this.state)
+        if(this.state.title === "" || this.state.title === null) {
+            message.error('请填写问卷名称', 1.5)
+            return
+        }
+        else if(this.state.intro === "" || this.state.intro === null) {
+            message.error('请填写问卷简介', 1.5)
+            return
+        }
+        else if(this.state.finishTime === "" || this.state.finishTime === null) {
+            message.error('请填写问卷截止日期', 1.5)
+            return
+        }
         axios({
             method:'post',
             url: '/api/modified',
             data: {
-                questionnaireId: this.props.match.params.qId,
+                questionnaireId: parseInt(this.props.match.params.qId),
                 title: this.state.title,
                 intro: this.state.intro,
                 finishTime: this.state.finishTime
@@ -246,6 +116,7 @@ class Manage extends React.Component {
         })
         .then(function(response) {
             console.log(response.data)
+            message.success('修改成功', 1.5);
         })
         .catch(function(error) {
             console.log(error);
@@ -362,7 +233,12 @@ class Manage extends React.Component {
                                     disabled={true}
                                 />
                                 <div style={{height: "16px"}}> </div>
+                                    <Link to = {"/s/" + this.props.match.params.qId}>问卷链接: {"localhost:3000/#/s/" + this.props.match.params.qId} </Link>
+                                <div style={{height: "16px"}}> </div>
                                 <div style={{width: '100%', height: "16px", textAlign: 'center'}}> 
+                                    
+                                    <div style={{height: "16px"}}> </div>
+
                                     <Button type="primary"
                                         onClick={(e)=>this.submitChange(e)}
                                     >
