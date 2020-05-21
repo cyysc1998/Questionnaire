@@ -123,6 +123,24 @@ class Manage extends React.Component {
         })
     }
 
+    delete(e) {
+        axios({
+            method:'post',
+            url: '/api/delete',
+            data: {
+                qId: parseInt(this.props.match.params.qId),
+            }
+        })
+        .then(function(response) {
+            console.log(response.data)
+            message.success('删除成功', 1.5);
+            window.location.href = "#/home"
+        })
+        .catch(function(error) {
+            console.log(error);
+        })
+    }
+
     getComponent(answer) {
         if(answer.type === 0) 
             return <AnalysisSingle data = {answer}/>
@@ -243,6 +261,12 @@ class Manage extends React.Component {
                                         onClick={(e)=>this.submitChange(e)}
                                     >
                                         保存修改
+                                    </Button>
+                                    &nbsp;&nbsp;
+                                    <Button type="primary" danger
+                                        onClick={(e)=>this.delete(e)}
+                                    >
+                                        删除问卷
                                     </Button>
                                 </div>
                                 <br/>
