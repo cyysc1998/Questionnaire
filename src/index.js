@@ -10,6 +10,7 @@ import View from './screen/view'
 import DashBoard from './screen/dashboard'
 import SuccessfulPage from './screen/successfulPage'
 import SubmitSuccessful from './screen/submitSuccessful'
+import FailPage from './screen/failPage'
 import Manage from './screen/manage'
 import Test from './component/manage/analysisSingle'
 
@@ -30,6 +31,7 @@ ReactDOM.render(
       <Route path="/success/:qId" component={SuccessfulPage}/>
       <Route path="/submitsucceed" component={SubmitSuccessful}/>
       <Route path="/content/:qId" component={Manage}/>
+      <Route path="/forbidden" component={FailPage}/>
     </Router>
   ),
   document.getElementById('root')
