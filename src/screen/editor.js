@@ -379,8 +379,17 @@ class EditorPage extends React.Component {
         console.log(this.state)
 
         if(this.state.setting.resistrictTimes === null || this.state.setting.resistrictTimes === 0) {
-            message.error('请填写最大次数', 1.5)
-            return
+            if(this.state.setting.maxTimes === 1 || this.state.setting.maxTimesPerDay === 1 ||this.state.setting.maxTimes === true || this.state.setting.maxTimesPerDay === true ) {
+                message.error('请填写最大次数', 1.5)
+                return
+            }
+            else {
+                var _state = this.state
+                _state.setting.resistrictTimes = '365'
+                this.setState({
+                    ..._state
+                })
+            }
         }
         else if(this.state.setting.finishTime === null || this.state.setting.finishTime === "") {
             message.error('请填写截止时间', 1.5)
@@ -394,6 +403,11 @@ class EditorPage extends React.Component {
             message.error('请填写问卷简介', 1.5)
             return
         }
+        else if((this.state.setting.maxTimes === true || this.state.setting.maxTimes === 1) && (this.state.setting.maxTimesPerDay === true || this.state.setting.maxTimesPerDay === 1)) {
+            message.error('最大填写次数与每天最大填写次数请仅选择一个', 1.5)
+            return
+        }
+        
 
         axios({
             method:'post',
@@ -403,11 +417,35 @@ class EditorPage extends React.Component {
                 content: this.state.question,
                 metadata: this.state.metadata,
                 setting: this.state.setting,
-                related: this.state.related
+                related: this.state.related,
             },
         })
         .then(function(response) {
             console.log(response.data)
+            if(response.data === -1) {
+                message.error('标题不能为空', 1.5)
+                return
+            }
+            if(response.data === -2) {
+                message.error('问卷简介不能为空', 1.5)
+                return
+            }
+            if(response.data === -3) {
+                message.error('注册次数必须大于0', 1.5)
+                return
+            }
+            if(response.data === -4) {
+                message.error('请检查问卷标题与问卷简介是否完整', 1.5)
+                return
+            }
+            if(response.data === -6) {
+                message.error('问卷起始时间应早于结束时间', 1.5)
+                return
+            }
+            if(response.data + 100000 < -6) {
+                message.error('请检查第' + (response.data + 100000) + '题是否完整', 1.5)
+                return
+            }
             window.location.href = "#/success/" + response.data
         })
         .catch(function(error) {
@@ -512,7 +550,7 @@ class EditorPage extends React.Component {
                     </Layout>
                     <div style={{
                         border: '1.5px dashed #1E90FF',
-                        width: (document.body.clientWidth)*0.2, height:'310px', position: 'fixed',
+                        width: (document.body.clientWidth)*0.2, height:'320px', position: 'fixed',
                         right: '50px', top: '85px', backgroundColor: 'white'
                     }}>
                         <div style={{width:'70%', margin: '15px auto'}}>
@@ -527,7 +565,10 @@ class EditorPage extends React.Component {
                                 <DatePicker style={{ width: '60%' }} onChange={(e, t)=>this.handleDatePicker(e, t)}/>
                             </Input.Group>
                             
-                            <p/>
+                            <div style={{textAlign: 'center', height: '26px'}}>
+                            <span style={{fontSize:"12px"}}>本问卷将自动收集地理位置信息</span>
+                            </div>
+                            
                             <div style={{textAlign: 'center'}}>
                                 <Button type="primary" icon={<ArrowUpOutlined />}  onClick={this.showModal} size="medium">
                                     生成问卷
@@ -564,7 +605,6 @@ class EditorPage extends React.Component {
                         </div>
                         <div style={{width:'70%', margin: '10px auto'}}>
                             <p><b>其他问题</b></p>
-                            <Button type="dashed" onClick={(e)=>this.handleSingleBox(e)}>级联问题</Button> &nbsp;
                             <Button type="dashed" onClick={(e)=>this.handleRateBox(e)}>评分收集</Button>
                         </div>
                     </div>

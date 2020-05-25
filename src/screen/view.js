@@ -4,7 +4,7 @@ import CheckBox from '../component/display/CheckBox'
 import DigitBox from '../component/display/DigitBox'
 import TextBox from '../component/display/TextBox'
 import RateBox from '../component/display/RateBox'
-import {Button, Modal} from 'antd'
+import {Button, Modal, message} from 'antd'
 import axios from 'axios'
 
 const backStyle = {
@@ -173,12 +173,31 @@ class View extends React.Component {
             url: '/api/submit',
             data: {
                 qId: parseInt(this.props.match.params.qId),
-                answer: answers
+                answer: answers,
+                ip: window.cip,
+                location: window.cname
+                
             },
         })
         .then(function(response) {
             console.log(response.data)
-            if(response.data === true)
+            if(response.data === -1) {
+                message.error('问卷已过期', 1.5)
+                return
+            }
+            else if(response.data === -2) {
+                message.error('问卷仅注册用户能填写', 1.5)
+                window.location.href = "#/register"
+            }
+            else if(response.data === -3) {
+                message.error('以到达问卷最大填写次数', 1.5)
+                return
+            }
+            else if(response.data === -4) {
+                message.error('以到达本日问卷最大填写次', 1.5)
+                return
+            }
+            else if(response.data === 1)
                 window.location.href = "#/submitsucceed"
         })
         .catch(function(error) {
