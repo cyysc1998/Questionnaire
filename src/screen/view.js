@@ -194,7 +194,7 @@ class View extends React.Component {
                 return
             }
             else if(response.data === -4) {
-                message.error('以到达本日问卷最大填写次', 1.5)
+                message.error('以到达本日问卷最大填写次数', 1.5)
                 return
             }
             else if(response.data === 1)

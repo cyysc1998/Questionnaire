@@ -1,7 +1,7 @@
 import React from 'react';
 import { UserOutlined, LaptopOutlined} from '@ant-design/icons';
 import { Layout, Menu, Breadcrumb, Button, Divider} from 'antd';
-import {Input, DatePicker, message} from 'antd'
+import {Input, DatePicker, message, Modal} from 'antd'
 import userService from '../service/userService'
 import AnalysisSingle from '../component/manage/analysisSingle'
 import AnalysisMulti from '../component/manage/analysisMulti'
@@ -9,6 +9,7 @@ import AnalysisInteger from '../component/manage/analysisInteger'
 import AnalysisFloat from '../component/manage/analysisFloat'
 import AnalysisText from '../component/manage/analysisText'
 import AnalysisRate from '../component/manage/analysisRate'
+import AnalysisLocation from '../component/manage/analysisLocation'
 import {Link} from 'react-router-dom'
 import axios from 'axios'
 
@@ -49,7 +50,8 @@ class Manage extends React.Component {
                 _this.setState({
                     result: response.data,
                     title: response.data.metadata.title,
-                    intro: response.data.metadata.intro
+                    intro: response.data.metadata.intro,
+                    location: response.data.location
                 })
             }
             
@@ -156,8 +158,28 @@ class Manage extends React.Component {
             return <AnalysisRate data = {answer}/>
     }
 
+    showModal = () => {
+        this.setState({
+            visible: true,
+        });
+    };
+    
+    handleOk = e => {
+        this.setState({
+            visible: false,
+        });
+        this.delete(e)
+    }
+
+    handleCancel = e => {
+        console.log(e);
+        this.setState({
+            visible: false,
+        });
+    };
 
     render() {
+        var _this = this
         return (
             <Layout style={{ minHeight: '97vh'}} breakpoint='xs'>
                 <Header className="header">
@@ -264,15 +286,30 @@ class Manage extends React.Component {
                                     </Button>
                                     &nbsp;&nbsp;
                                     <Button type="primary" danger
-                                        onClick={(e)=>this.delete(e)}
+                                        onClick={this.showModal}
                                     >
                                         删除问卷
                                     </Button>
+                                    <Modal
+                                        title="警告"
+                                        visible={this.state.visible}
+                                        onOk={this.handleOk}
+                                        onCancel={this.handleCancel}
+                                        okText="确认"
+                                        cancelText="取消"
+                                    >
+                                        <p>删除后无法恢复，确认删除？</p>
+                                    </Modal>
                                 </div>
                                 <br/>
                             </div>
-                            <Divider orientation="left" plain>统计结果</Divider>
-                            
+
+                            <Divider orientation="left" plain>地理位置分布</Divider>   
+                            <div style={{width: "70%"}}>
+                                <AnalysisLocation data = {_this.state.location} /> 
+                            </div>
+
+                            <Divider orientation="left" plain>统计结果</Divider>   
                                 <div style={{width: "70%"}}>
                                     {
                                         this.state.result.answer.map((answer) =>(

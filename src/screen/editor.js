@@ -555,7 +555,7 @@ class EditorPage extends React.Component {
                     }}>
                         <div style={{width:'70%', margin: '15px auto'}}>
                             <p><b>设置：</b></p>
-                            <span>允许非注册用户填写：</span>&nbsp;&nbsp;&nbsp;&nbsp;<Switch defaultChecked onChange={(e)=>this.handleSwitchRegister(e)}/> <p/>
+                            <span>是否仅注册用户填写：</span>&nbsp;&nbsp;&nbsp;&nbsp;<Switch defaultChecked onChange={(e)=>this.handleSwitchRegister(e)}/> <p/>
                             <span>是否限制填写次数：</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<Switch defaultChecked onChange={(e)=>this.handleSwitchTimes(e)}/> <p/>
                             <span>是否限制每日填写次数：</span><Switch defaultChecked onChange={(e)=>this.handleSwitchTimesPerDay(e)}/> <p/>
                             <Input addonBefore="最大填写次数" placeholder="请在此输入" onChange={(e)=>this.handleMaxTimes(e)}/> <p/>
