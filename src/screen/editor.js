@@ -77,17 +77,53 @@ class EditorPage extends React.Component {
     }
 
     handleDelete(id) {
-        var _state = this.state
+        // var _state = this.state
         
-        _state.question.splice(id-1, 1)
+        // _state.question.splice(id-1, 1)
 
-        for(let i=0; i<this.state.question.length + 5; i++) {
-            if(_state.pointMap[i] === -id)
-                _state.pointMap[i] = 0
-        }
+        // for(let i=0; i<this.state.question.length + 5; i++) {
+        //     if(_state.pointMap[i] === -id)
+        //         _state.pointMap[i] = 0
+        // }
 
-        this.setState({ 
-            ..._state
+        // this.setState({ 
+        //     ..._state
+        // })
+        this.setState({
+            related : {},
+            pointMap: [],
+        })
+        
+
+    }
+
+    handleDeleteChoice(qId, cId) {
+        console.log(qId, cId)
+        var record = this.state.related
+        var _record = {}
+        
+    　　for(var key in record){
+            let tId = parseInt(key.substr(0, 1))
+            if(tId === qId) {
+                let _cId = parseInt(key.substr(2, 1))
+                if(cId > _cId) {
+                    _record[key] = record[key]
+                }
+                else if(cId === _cId) {
+                }
+                else {
+                    let t_key = "" + tId + "-" + (_cId-1)
+                    _record[t_key] = record[key]
+                }
+            }
+            else {
+                _record[key] = record[key]
+                _record[key] = record[key]
+            }
+    　　}
+            
+        this.setState({
+            related: _record
         })
     }
 
@@ -250,6 +286,7 @@ class EditorPage extends React.Component {
                     handlePointMap = {(selectArray, id)=>this.handlePointMap(selectArray, id)}
                     data={q.q_content}
                     onDelete={(e)=>this.handleDelete(e)}
+                    onDeleteChoice={(qId, cId)=>this.handleDeleteChoice(qId, cId)}
                     setIntro={(id, intro)=>this.setSingleIntro(id, intro)}
                     setChoices={(id, choices)=>this.setSingleChoices(id, choices)}
                     addRelated={(value, u_id, c_id)=>this.addRelated(value, u_id, c_id)}

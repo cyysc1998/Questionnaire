@@ -131,9 +131,6 @@ class GSingleBox extends React.Component {
                                 this.state.choices.map((choice) => (
                                     <div key = {this.state.choices.indexOf(choice)}>
                                         选项{this.state.choices.indexOf(choice) + 1}: &nbsp; &nbsp; &nbsp; &nbsp;
-                                        {/* <Select mode="tags" style={{ width: '85%' }} placeholder="请选择关联选项" onChange={(e, choices)=>this.handleRelation(e, choices)}>
-                                            {this.getChildren()}
-                                        </Select> */}
                                         <SelectBox
                                             addRelated = {(value, u_id, c_id)=>this.handleRelation(value, u_id, c_id)}
                                             q_id = {this.props.id - 1}
@@ -199,6 +196,7 @@ class GSingleBox extends React.Component {
                                                 style={{ margin: '0 8px' }}
                                                 onClick={() => {
                                                     remove(field.name);
+                                                    this.props.onDeleteChoice(this.props.id, field.name)
                                                 }}
                                             />
                                         ) : null}
