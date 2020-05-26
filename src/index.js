@@ -12,6 +12,7 @@ import SuccessfulPage from './screen/successfulPage'
 import SubmitSuccessful from './screen/submitSuccessful'
 import FailPage from './screen/failPage'
 import Manage from './screen/manage'
+import UserInfo from './screen/userInfo'
 import Test from './component/manage/analysisSingle'
 
 const hashHistory = createHashHistory();
@@ -31,6 +32,7 @@ ReactDOM.render(
       <Route path="/success/:qId" component={SuccessfulPage}/>
       <Route path="/submitsucceed" component={SubmitSuccessful}/>
       <Route path="/content/:qId" component={Manage}/>
+      <Route path="/user" component={UserInfo}/>
       <Route path="/forbidden" component={FailPage}/>
     </Router>
   ),
