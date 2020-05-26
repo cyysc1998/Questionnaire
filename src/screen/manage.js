@@ -309,7 +309,7 @@ class Manage extends React.Component {
                                 <AnalysisLocation data = {_this.state.location} /> 
                             </div>
 
-                            <Divider orientation="left" plain>统计结果</Divider>   
+                            <Divider orientation="left" plain>统计结果(已剔除空白无效问卷)</Divider>   
                                 <div style={{width: "70%"}}>
                                     {
                                         this.state.result.answer.map((answer) =>(

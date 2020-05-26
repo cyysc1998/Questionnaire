@@ -442,8 +442,8 @@ class EditorPage extends React.Component {
                 message.error('问卷起始时间应早于结束时间', 1.5)
                 return
             }
-            if(response.data + 100000 < -6) {
-                message.error('请检查第' + (response.data + 100000) + '题是否完整', 1.5)
+            if(response.data + 100000 <= 0) {
+                message.error('请检查第' + (response.data + 100000) + 1 + '题是否完整', 1.5)
                 return
             }
             window.location.href = "#/success/" + response.data
