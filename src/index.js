@@ -13,7 +13,6 @@ import SubmitSuccessful from './screen/submitSuccessful'
 import FailPage from './screen/failPage'
 import Manage from './screen/manage'
 import UserInfo from './screen/userInfo'
-import Test from './component/manage/analysisSingle'
 
 const hashHistory = createHashHistory();
 
@@ -25,7 +24,6 @@ ReactDOM.render(
       <Route path="/" exact component={HomePage}/>
       <Route path="/login" component={LoginPage}/>
       <Route path="/register" component={RegisterPage}/>
-      <Route path="/test" component={Test}/>
       <Route path="/editor" component={EditorPage}/>
       <Route path="/s/:qId" component={View}/>
       <Route path="/home" component={DashBoard}/>
