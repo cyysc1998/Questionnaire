@@ -187,7 +187,7 @@ class View extends React.Component {
             }
             else if(response.data === -2) {
                 message.error('问卷仅注册用户能填写', 1.5)
-                window.location.href = "#/register"
+                window.location.href = "#/forbidden"
             }
             else if(response.data === -3) {
                 message.error('以到达问卷最大填写次数', 1.5)

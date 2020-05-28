@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {Link} from 'react-router-dom';
-import { Form, Input, Button, Checkbox} from 'antd';
+import { Form, Input, Button, Checkbox, message} from 'antd';
 import axios from 'axios'
 
 var wholeStyle = {
@@ -16,7 +16,7 @@ var wholeStyle = {
 
 var loginStyle = {
     width: '450px',
-    height: '390px',
+    height: '370px',
     borderRadius: '10px',
     margin: "150px auto",
     backgroundColor: 'white',
@@ -63,9 +63,10 @@ class LoginPanel extends Component {
             window.location.href = "#/home";
         }
         else{
-            this.setState({ 
-                pass: res
-            })
+            if(res === -1)
+                message.error("密码错误", 1.5)
+            else if(res === -2)
+                message.error("用户名为注册", 1.5)
         }
     }
 
@@ -160,7 +161,6 @@ class LoginPanel extends Component {
                                     登录
                                     </Button>
                                 </Form.Item>
-                                {this.state.pass===0 ? <p/>: <p style={{color:"red", textAlign:"center"}}>{this.notice[-this.state.pass]}</p>}
                             </Form>
                             
                         </div>

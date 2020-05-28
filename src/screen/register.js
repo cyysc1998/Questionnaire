@@ -6,6 +6,7 @@ import {
     Tooltip,
     Checkbox,
     Button,
+    message,
 } from 'antd';
 import { QuestionCircleOutlined } from '@ant-design/icons';
 import axios from 'axios'
@@ -23,7 +24,7 @@ var wholeStyle = {
 
 var registerStyle = {
     width: '450px',
-    height: '500px',
+    height: '480px',
     borderRadius: '10px',
     position: 'relative', 
     top: "150px",
@@ -83,6 +84,17 @@ class RegisterPage extends Component {
         var _this = this
         delete values.comfirm;
         delete values.aggrement;
+
+        if(_this.state.total !== 3) {
+            if(_this.state.total === 0)
+                message.error("该用户名、邮箱已被注册")
+            else if(_this.state.total === 1)
+                message.error("该用户名已被注册")
+            else if(_this.state.total === 2)
+                message.error("该邮箱已被注册")
+            return 
+        }
+
         console.log(values);
         axios({
             method:'post',
@@ -93,13 +105,14 @@ class RegisterPage extends Component {
         })
         .then(function(response) {
             console.log(response.data)
+            message.success('注册成功', 1.5);
             if(response.data > 0) {
                 _this.setState({ 
                     total: 4
                 })
                 setTimeout(function (){
                     window.location.href = '#/login'
-                }, 3000)
+                }, 1000)
             }
         })
         .catch(function(error) {
@@ -134,6 +147,15 @@ class RegisterPage extends Component {
                 total: _total
             })
 
+            if(_this.state.total !== 3) {
+                if(_this.state.total === 0)
+                    message.error("该用户名、邮箱已被注册")
+                else if(_this.state.total === 1)
+                    message.error("该用户名已被注册")
+                else if(_this.state.total === 2)
+                    message.error("该邮箱已被注册")
+            }
+
         })
         .catch(function(error) {
             console.log(error);
@@ -166,13 +188,22 @@ class RegisterPage extends Component {
             _this.setState({
                 total: _total
             })
+
+            if(_this.state.total !== 3) {
+                if(_this.state.total === 0)
+                    message.error("该用户名、邮箱已被注册")
+                else if(_this.state.total === 1)
+                    message.error("该用户名已被注册")
+                else if(_this.state.total === 2)
+                    message.error("该邮箱已被注册")
+            }
         })
         .catch(function(error) {
             console.log(error);
         })
     }
 
-    mesg = ["该昵称已被注册 该邮箱已被注册", "该昵称已被注册", "该邮箱已被注册", "", "注册成功，页面在3秒钟后自动跳转..."]
+    mesg = ["该昵称已被注册 该邮箱已被注册", "该昵称已被注册", "该邮箱已被注册", "", ""]
 
     render() {
         var _this = this
@@ -251,7 +282,7 @@ class RegisterPage extends Component {
                                         message: '请输入您的电子邮件!',
                                     },
                                     ]}
-                                    onBlur = {(e)=>this.emailCheck(e)}
+                                    onBlur = {(e)=>_this.emailCheck(e)}
                                 >
                                     <Input placeholder="请输入您的电子邮箱地址"/>
                                 </Form.Item>
@@ -335,7 +366,7 @@ class RegisterPage extends Component {
                                         注册
                                     </Button>
                                 </Form.Item>
-                                {this.state.pass===3 ? <p/>: <p style={{color:"red", textAlign:"center"}}>{_this.mesg[this.state.total]}</p>}
+                                {/* {this.state.pass===3 ? <p/>: <p style={{color:"red", textAlign:"center"}}>{_this.mesg[this.state.total]}</p>} */}
                             </Form>
                         </div>
                     </div>

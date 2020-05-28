@@ -90,7 +90,7 @@ class DashBoard extends React.Component {
                             </span>
                             }
                         >
-                            <Menu.Item key="3"><Button type="link" style={{color:'grey'}} >用户信息</Button></Menu.Item>
+                            <Menu.Item key="3"><Button type="link" style={{color:'grey'}} onClick={()=>(window.location.href = '#/user')}>用户信息</Button></Menu.Item>
                             <Menu.Item key="4"><Button type="link" style={{color:'grey'}} onClick={(e)=>this.handleLogout(e)}>退出</Button></Menu.Item>
                         </SubMenu>
                         </Menu>
