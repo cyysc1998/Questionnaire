@@ -77,18 +77,18 @@ class EditorPage extends React.Component {
     }
 
     handleDelete(id) {
-        // var _state = this.state
-        
-        // _state.question.splice(id-1, 1)
+        var _state = this.state
+        _state.question.splice(id-1, 1)
 
         // for(let i=0; i<this.state.question.length + 5; i++) {
         //     if(_state.pointMap[i] === -id)
         //         _state.pointMap[i] = 0
         // }
 
-        // this.setState({ 
-        //     ..._state
-        // })
+        this.setState({ 
+            ..._state
+        })
+        
         this.setState({
             related : {},
             pointMap: [],
