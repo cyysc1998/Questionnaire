@@ -29,7 +29,7 @@ class RateBox extends React.Component {
                 <div style={{width: '90%', textAlign: 'left', margin: '0 auto'}}>
                     {intro} <br/>
                     <div style={{width: '90%', textAlign: 'left', margin: '0 auto'}}>
-                        <Rate allowHalf defaultValue={0} onChange={this.onChange}  value={value} count = {data.count}/>
+                        <Rate allowHalf defaultValue={0} onChange={this.onChange}  value={value} count = {data.max}/>
                     </div>
                 </div>
                 <br/>
